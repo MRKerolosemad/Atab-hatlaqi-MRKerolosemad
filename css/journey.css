@@ -1,0 +1,1103 @@
+/* أنماط لعبة خريطة الرحلة التعليمية - منصة أتعب هتلاقي */
+:root {
+  --j-navy: #14284B;
+  --j-gold: #D4AF37;
+  --j-gold-light: #FDE047;
+  --j-amber: #B85A05;
+  --j-teal: #0A8585;
+  --j-teal-light: #2DD4BF;
+  --j-good: #1B8049;
+  --j-bg: #EEF3F8;
+  --j-card-bg: #FFFFFF;
+  --j-text: #14223D;
+  --j-muted: #566883;
+  --j-line: #D2DDE8;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --j-navy: #0F1C33;
+    --j-bg: #0B1424;
+    --j-card-bg: #132238;
+    --j-text: #E7EEF7;
+    --j-muted: #9DB0CB;
+    --j-line: #27395A;
+  }
+}
+
+.journey-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 12px 16px 40px;
+}
+
+/* لوحة تحكم البطل العلوية */
+.hero-hub {
+  background: linear-gradient(135deg, #14284B 0%, #1E3A6E 100%);
+  color: #fff;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 10px 25px rgba(20, 40, 75, 0.18);
+  border: 2px solid rgba(212, 175, 55, 0.4);
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.hero-hub::after {
+  content: '';
+  position: absolute;
+  top: -50px;
+  left: -50px;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.25) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.hub-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.player-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar-frame {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: #fff;
+  border: 3px solid #D4AF37;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+}
+
+.player-details h2 {
+  font-size: 20px;
+  color: #fff;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.edit-name-btn {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: #E9D28A;
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.edit-name-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+
+.player-rank {
+  color: #E9D28A;
+  font-size: 14px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 2px;
+}
+
+.hub-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.icon-btn {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.icon-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+.hub-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.stat-pill {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.stat-icon {
+  font-size: 24px;
+}
+
+.stat-val-wrap small {
+  display: block;
+  font-size: 12px;
+  color: #B9CBE4;
+}
+
+.stat-val-wrap b {
+  font-size: 20px;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+
+/* شريط التقدم النجمي */
+.progress-bar-wrap {
+  margin-top: 14px;
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 700;
+  color: #B9CBE4;
+  margin-bottom: 6px;
+}
+
+.progress-track {
+  height: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #D4AF37 0%, #F59E0B 100%);
+  border-radius: 10px;
+  transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+}
+
+/* الخريطة والمسار المتعرج */
+.map-container {
+  position: relative;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.map-path-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.map-stages-list {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  width: 100%;
+  max-width: 500px;
+  position: relative;
+  z-index: 2;
+}
+
+.stage-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.stage-row:nth-child(even) {
+  transform: translateX(45px);
+}
+.stage-row:nth-child(odd) {
+  transform: translateX(-45px);
+}
+.stage-row:nth-child(4n+1) {
+  transform: translateX(0);
+}
+
+@media (max-width: 580px) {
+  .stage-row:nth-child(even) {
+    transform: translateX(25px);
+  }
+  .stage-row:nth-child(odd) {
+    transform: translateX(-25px);
+  }
+  .stage-row:nth-child(4n+1) {
+    transform: translateX(0);
+  }
+}
+
+/* محطة المرحلة (Node) */
+.stage-node-btn {
+  background: var(--j-card-bg);
+  border: 4px solid var(--j-line);
+  border-radius: 50%;
+  width: 90px;
+  height: 90px;
+  padding: 0;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  font-family: inherit;
+}
+
+.stage-node-btn:focus-visible {
+  outline: 4px solid var(--j-gold);
+  outline-offset: 4px;
+}
+
+.stage-node-btn .node-icon {
+  font-size: 32px;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+
+.stage-node-btn .node-num {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 28px;
+  height: 28px;
+  background: var(--j-navy);
+  color: #fff;
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #fff;
+}
+
+/* نجوم العقدة */
+.node-stars {
+  position: absolute;
+  bottom: -18px;
+  background: var(--j-navy);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 2px 8px;
+  border-radius: 12px;
+  display: flex;
+  gap: 2px;
+  font-size: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.node-stars span {
+  color: #9DB0CB;
+}
+.node-stars span.earned {
+  color: #FBBF24;
+  text-shadow: 0 0 6px rgba(251, 191, 36, 0.8);
+}
+
+/* بطاقة العنوان المنبثقة بجانب العقدة */
+.stage-tooltip {
+  position: absolute;
+  background: var(--j-card-bg);
+  color: var(--j-text);
+  border: 1px solid var(--j-line);
+  padding: 6px 14px;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  font-size: 13.5px;
+  font-weight: 700;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0.95;
+}
+
+.stage-row:nth-child(even) .stage-tooltip {
+  right: 105px;
+}
+.stage-row:nth-child(odd) .stage-tooltip {
+  left: 105px;
+}
+.stage-row:nth-child(4n+1) .stage-tooltip {
+  left: 105px;
+}
+
+/* حالات العقد (States) */
+.stage-node-btn.locked {
+  background: #DCE3EC;
+  border-color: #B0C0D4;
+  cursor: not-allowed;
+  opacity: 0.75;
+}
+.stage-node-btn.locked .node-icon {
+  filter: grayscale(1);
+  opacity: 0.5;
+}
+.stage-node-btn.locked::after {
+  content: '🔒';
+  position: absolute;
+  font-size: 24px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+.stage-node-btn.current {
+  border-color: var(--j-gold);
+  background: #FFFDF0;
+  animation: pulse-aura 2s infinite;
+  transform: scale(1.08);
+}
+.stage-node-btn.current .node-num {
+  background: var(--j-gold);
+  color: #14284B;
+}
+
+@keyframes pulse-aura {
+  0% {
+    box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 16px rgba(212, 175, 55, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(212, 175, 55, 0);
+  }
+}
+
+.stage-node-btn.completed {
+  border-color: var(--j-good);
+}
+.stage-node-btn.completed .node-num {
+  background: var(--j-good);
+}
+
+.stage-node-btn:hover:not(.locked) {
+  transform: scale(1.12);
+  box-shadow: 0 12px 24px rgba(20, 40, 75, 0.2);
+}
+
+/* النافذة المنبثقة للتحدي والمهمات (Modal Overlay) */
+.game-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 20, 36, 0.75);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.game-modal {
+  background: var(--j-card-bg);
+  color: var(--j-text);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 620px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border: 1px solid var(--j-line);
+  box-shadow: 0 20px 45px rgba(0,0,0,0.35);
+  padding: 24px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: var(--j-bg);
+  border: 1px solid var(--j-line);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 18px;
+  color: var(--j-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.modal-close-btn:hover {
+  background: #FEE2E2;
+  color: #DC2626;
+  border-color: #F87171;
+}
+
+/* تفاصيل شاشة التحدي */
+.mission-header {
+  border-bottom: 2px solid var(--j-line);
+  padding-bottom: 12px;
+}
+
+.mission-tag {
+  display: inline-block;
+  background: #E0E7FF;
+  color: #3730A3;
+  padding: 3px 10px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.mission-header h2 {
+  font-size: 22px;
+  color: var(--j-navy);
+  margin: 0;
+}
+
+.stage-brief {
+  background: var(--j-bg);
+  border-inline-start: 4px solid var(--j-amber);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 14.5px;
+  color: var(--j-text);
+  line-height: 1.6;
+}
+
+/* شريط أسئلة المرحلة */
+.q-progress-bar {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.q-step {
+  flex: 1;
+  height: 8px;
+  background: var(--j-line);
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+.q-step.active {
+  background: var(--j-gold);
+}
+.q-step.done {
+  background: var(--j-good);
+}
+
+.q-box {
+  margin-top: 6px;
+}
+
+.q-text {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+
+.options-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.opt-btn {
+  background: var(--j-card-bg);
+  border: 2px solid var(--j-line);
+  border-radius: 14px;
+  padding: 12px 16px;
+  text-align: start;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--j-text);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+}
+
+.opt-btn:hover:not(:disabled) {
+  border-color: var(--j-navy);
+  background: var(--j-bg);
+  transform: translateX(-4px);
+}
+
+.opt-btn.correct {
+  background: #ECFDF5 !important;
+  border-color: #10B981 !important;
+  color: #065F46 !important;
+}
+
+.opt-btn.incorrect {
+  background: #FEF2F2 !important;
+  border-color: #EF4444 !important;
+  color: #991B1B !important;
+}
+
+.opt-letter {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--j-bg);
+  border: 1px solid var(--j-line);
+  font-weight: 800;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* الشرح والتفسير العلمي */
+.explanation-card {
+  margin-top: 14px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border-inline-start: 5px solid;
+  animation: fadeIn 0.3s ease;
+  line-height: 1.6;
+  font-size: 14.5px;
+}
+
+.explanation-card.ok {
+  background: #ECFDF5;
+  border-color: #10B981;
+  color: #065F46;
+}
+
+.explanation-card.no {
+  background: #FEF2F2;
+  border-color: #EF4444;
+  color: #991B1B;
+}
+
+.hint-wrap {
+  margin-top: 8px;
+}
+
+.hint-toggle-btn {
+  background: none;
+  border: none;
+  color: var(--j-amber);
+  font-weight: 700;
+  font-size: 13.5px;
+  cursor: pointer;
+  padding: 4px 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.hint-content {
+  background: #FEF3C7;
+  color: #92400E;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  margin-top: 4px;
+  display: none;
+}
+.hint-content.show {
+  display: block;
+}
+
+/* شاشة تتويج المرحلة (Stage Complete Modal) */
+.celebrate-screen {
+  text-align: center;
+  padding: 10px 0;
+}
+
+.stars-earned-anim {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.star-anim {
+  font-size: 46px;
+  transform: scale(0);
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.star-anim.pop {
+  transform: scale(1.2);
+}
+.star-anim.pop.active {
+  transform: scale(1);
+  color: #FBBF24;
+  text-shadow: 0 0 16px rgba(251, 191, 36, 0.7);
+}
+.star-anim.empty {
+  color: #D1D5DB;
+}
+
+.score-badge-win {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #FEF3C7;
+  color: #92400E;
+  padding: 8px 20px;
+  border-radius: 14px;
+  font-weight: 800;
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+.motto-box {
+  background: var(--j-bg);
+  border-radius: 12px;
+  padding: 12px;
+  margin: 16px 0;
+  color: var(--j-navy);
+  font-weight: 700;
+  font-size: 15px;
+}
+
+/* الأوسمة (Badges Modal) */
+.badges-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.badge-card {
+  background: var(--j-bg);
+  border: 1px solid var(--j-line);
+  border-radius: 14px;
+  padding: 14px 10px;
+  text-align: center;
+  opacity: 0.5;
+  filter: grayscale(1);
+  transition: all 0.3s;
+}
+
+.badge-card.unlocked {
+  opacity: 1;
+  filter: none;
+  background: #FFFDF0;
+  border-color: #D4AF37;
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.25);
+}
+
+.badge-card .b-icon {
+  font-size: 36px;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.badge-card h4 {
+  font-size: 14px;
+  margin: 0;
+  color: var(--j-navy);
+}
+
+.badge-card small {
+  font-size: 11.5px;
+  color: var(--j-muted);
+}
+
+/* دبلومة وسام البطولة الملكية للعبة */
+.royal-diploma {
+  background: #FFFDF9;
+  padding: 10px;
+  position: relative;
+  font-family: var(--f-body, 'Cairo', sans-serif);
+  color: #14284B;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.18);
+  border-radius: 12px;
+}
+
+.diploma-border-outer {
+  border: 4px solid #14284B;
+  padding: 6px;
+  background: linear-gradient(135deg, #FAF7EE 0%, #FFFFFF 50%, #F5EEDB 100%);
+  border-radius: 8px;
+}
+
+.diploma-border-inner {
+  border: 2px solid #D4AF37;
+  padding: 24px 20px 20px;
+  position: relative;
+  border-radius: 4px;
+  background-image: 
+    radial-gradient(circle at 50% 10%, rgba(212, 175, 55, 0.08) 0%, transparent 60%),
+    radial-gradient(circle at 10% 90%, rgba(20, 40, 75, 0.04) 0%, transparent 50%);
+}
+
+/* زخارف الأركان الذهبية */
+.diploma-corner {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  pointer-events: none;
+}
+.diploma-corner.tl { top: 6px; left: 6px; border-top: 3px solid #D4AF37; border-left: 3px solid #D4AF37; }
+.diploma-corner.tr { top: 6px; right: 6px; border-top: 3px solid #D4AF37; border-right: 3px solid #D4AF37; }
+.diploma-corner.bl { bottom: 6px; left: 6px; border-bottom: 3px solid #D4AF37; border-left: 3px solid #D4AF37; }
+.diploma-corner.br { bottom: 6px; right: 6px; border-bottom: 3px solid #D4AF37; border-right: 3px solid #D4AF37; }
+
+/* رأس الدبلومة */
+.diploma-header {
+  text-align: center;
+}
+
+.diploma-badge-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #14284B;
+  color: #E9D28A;
+  padding: 4px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 800;
+  border: 1px solid #D4AF37;
+  box-shadow: 0 2px 8px rgba(20,40,75,0.2);
+}
+
+.diploma-stars-row {
+  color: #FBBF24;
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+
+.diploma-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 12px 0 6px;
+}
+
+.diploma-brand img {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  border: 2px solid #D4AF37;
+  background: #fff;
+  object-fit: contain;
+}
+
+.diploma-brand-info {
+  text-align: start;
+}
+.diploma-brand-info b {
+  font-family: var(--f-display);
+  font-size: 16px;
+  color: #14284B;
+  display: block;
+}
+.diploma-brand-info span {
+  font-size: 12.5px;
+  color: #566883;
+}
+
+.diploma-title {
+  font-family: var(--f-display);
+  font-size: clamp(24px, 4.5vw, 34px);
+  color: #14284B;
+  margin: 8px 0 2px;
+  font-weight: 800;
+  text-shadow: 0 1px 2px rgba(212,175,55,0.4);
+}
+
+.diploma-grant-line {
+  font-size: 15px;
+  color: #566883;
+  margin-top: 4px;
+  font-weight: 600;
+}
+
+/* جسم الدبلومة واسم الطالب */
+.diploma-body {
+  text-align: center;
+  margin: 10px 0;
+}
+
+.diploma-name-frame {
+  display: inline-block;
+  padding: 6px 36px;
+  background: linear-gradient(90deg, rgba(212,175,55,0.06), rgba(212,175,55,0.22), rgba(212,175,55,0.06));
+  border-bottom: 3px solid #D4AF37;
+  border-radius: 6px;
+  margin: 6px 0;
+}
+
+.diploma-name {
+  font-family: var(--f-display);
+  font-size: clamp(26px, 5.5vw, 40px);
+  color: #B85A05;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.diploma-desc {
+  max-width: 660px;
+  margin: 8px auto;
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: #334155;
+  font-weight: 600;
+}
+
+/* دروع وبطاقات الإنجاز الثلاثية */
+.diploma-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  max-width: 580px;
+  margin: 16px auto 8px;
+}
+
+.metric-shield {
+  background: #FFFFFF;
+  border: 2px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 10px 6px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.04);
+}
+
+.metric-shield.prime {
+  border-color: #D4AF37;
+  background: #FFFDF0;
+  box-shadow: 0 4px 14px rgba(212,175,55,0.25);
+  transform: translateY(-2px);
+}
+
+.metric-shield .m-icon {
+  font-size: 22px;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.metric-shield .m-val {
+  font-size: 17px;
+  font-weight: 800;
+  color: #14284B;
+  font-variant-numeric: tabular-nums;
+}
+
+.metric-shield .m-title {
+  font-size: 11.5px;
+  color: #566883;
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+/* تذييل الدبلومة والختم البارز */
+.diploma-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px dashed #D4AF37;
+}
+
+.diploma-seal-col {
+  flex: none;
+}
+
+/* الختم الذهبي البارز ثلاثي الأبعاد */
+.embossed-seal {
+  width: 86px;
+  height: 86px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #FDE68A 0%, #D4AF37 70%, #B45309 100%);
+  border: 3px dashed #FFFDF0;
+  box-shadow: 0 6px 14px rgba(180, 83, 9, 0.35), inset 0 2px 4px rgba(255,255,255,0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #78350F;
+  text-align: center;
+  transform: rotate(-8deg);
+  line-height: 1.2;
+}
+
+.seal-inner-star {
+  font-size: 14px;
+  color: #92400E;
+}
+
+.seal-inner-title {
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.seal-inner-sub {
+  font-size: 9px;
+  font-weight: 700;
+  color: #78350F;
+}
+
+.diploma-sig-col {
+  flex: 1 1 280px;
+  text-align: start;
+}
+
+.diploma-signatures {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #14284B;
+}
+
+.diploma-signatures b {
+  color: #B85A05;
+}
+
+.diploma-quote {
+  margin-top: 8px;
+  font-size: 13.5px;
+  color: #0A8585;
+  font-weight: 700;
+}
+
+/* أنماط الطباعة وحفظ PDF الخاصة بالوسام والدبلومة */
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 6mm;
+  }
+  html, body {
+    background: #ffffff !important;
+    color: #14284B !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+  /* إخفاء كل العناصر الأخرى غير المرغوب فيها أثناء الطباعة */
+  .bn-head,
+  .bn-foot,
+  .journey-wrap,
+  #confettiCanvas,
+  #challengeModal,
+  #badgesModal,
+  .modal-close-btn,
+  .noprint {
+    display: none !important;
+  }
+  /* تفريغ غلاف النافذة المنبثقة من أي قيود لتسمح بعرض الشهادة */
+  .game-modal-overlay {
+    position: static !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+    z-index: 9999 !important;
+  }
+  .game-modal {
+    position: static !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+    max-height: none !important;
+    overflow: visible !important;
+    display: block !important;
+    width: 100% !important;
+  }
+  #certModal {
+    display: block !important;
+  }
+  /* إظهار دبلومة وسام البطولة بملء الصفحة وبالألوان الكاملة */
+  #journeyCertArea {
+    display: block !important;
+    visibility: visible !important;
+    position: relative !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    padding: 4px !important;
+    box-shadow: none !important;
+    border-radius: 4px !important;
+    page-break-inside: avoid !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  #journeyCertArea * {
+    visibility: visible !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
+
+body.printing-diploma .game-modal-overlay,
+body.printing-diploma #certModal {
+  display: block !important;
+}
+
+/* كانفاس الاحتفال بالكونفيتي */
+#confettiCanvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2000;
+  width: 100vw;
+  height: 100vh;
+}

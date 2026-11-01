@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>الصف الثالث الإعدادي – أتعب هتلاقي</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Reem+Kufi:wght@600;700&display=swap">
+<link rel="stylesheet" href="css/brand.css"><link rel="stylesheet" href="css/app.css">
+</head><body>
+<script src="js/layout.js" data-root="" data-page="grade3.html"></script>
+<div class="wrap"><main>
+<div><h1>الصف الثالث الإعدادي</h1><p class="lead">الوحدة الثانية: الكهربية والمغناطيسية – الدرس الثاني: الدوائر الكهربية</p></div>
+<div class="card" style="background:linear-gradient(135deg,#14284B,#1E3A6E);color:#fff;border:2px solid #D4AF37;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:20px 24px">
+  <div style="flex:1 1 280px">
+    <span style="background:#D4AF37;color:#14284B;padding:3px 10px;border-radius:6px;font-weight:800;font-size:12px">جديد المنصة 🚀</span>
+    <h2 style="font-size:22px;margin:8px 0 4px;color:#fff">رحلة التحدي والنجوم – الصف الثالث الإعدادي</h2>
+    <p style="color:#B9CBE4;font-size:15px">خريطة تفاعلية بنظام المراحل والنجوم ⭐ والنقاط ⚡ والأوسمة 🎖️ تشمل مفاهيم وقوانين الوحدة كاملة ومفاتيح الحفظ!</p>
+  </div>
+  <a href="journey.html" class="btn" style="background:#D4AF37;color:#14284B;font-size:16px;text-decoration:none;display:inline-flex;align-items:center;gap:6px;box-shadow:0 4px 14px rgba(212,175,55,0.4)">ابدأ المغامرة الآن ←</a>
+</div>
+<p class="guide">اختر تجربة من البطاقات للبدء، وفي أعلى كل صفحة شريط للتنقل. للرجوع لاختيار الصف اضغط «الرئيسية».</p>
+<div class="cards" id="cards"></div>
+<p><a class="btn alt" href="index.html" style="text-decoration:none;display:inline-block">← الرئيسية (اختيار الصف)</a></p>
+</main></div>
+<script src="js/experiments.js"></script>
+<script>
+document.getElementById('cards').innerHTML=EXPERIMENTS.filter(function(e){return e.grade==='prep3';}).map(function(e){return '<a class="xcard" href="'+e.url+'"><span class="ic" aria-hidden="true">'+e.icon+'</span><span class="tag">'+e.tag+'</span><h2>'+e.title+'</h2><p>'+e.desc+'</p><span class="go">افتح ←</span></a>';}).join('');
+</script><script src="js/config.js"></script><script src="js/helper.js" data-page="grade3" data-logo="assets/logo.png"></script>
+</body></html>

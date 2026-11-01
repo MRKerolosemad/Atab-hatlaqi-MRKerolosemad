@@ -1,0 +1,14 @@
+/* الهوية المشتركة: الشريط العلوي والتذييل (بادئة bn- لتجنب التعارض) */
+.bn-head{background:#14284B;color:#fff;border-bottom:4px solid #D4AF37;font-family:'Cairo',system-ui,Tahoma,sans-serif}
+.bn-in{max-width:1080px;margin:auto;padding:10px 16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.bn-logo{width:62px;height:62px;border-radius:50%;flex:none;background:#fff;object-fit:contain}
+.bn-t{flex:1 1 200px;line-height:1.45;min-width:0}
+.bn-t b{font-family:'Reem Kufi','Cairo',sans-serif;font-size:20px;display:block}
+.bn-t span{color:#E9D28A;font-size:14.5px}
+.bn-nav{display:flex;gap:6px;flex-wrap:wrap}
+.bn-nav a{color:#fff;text-decoration:none;padding:9px 13px;border-radius:10px;font-weight:700;font-size:15px;border:1px solid rgba(255,255,255,.28);min-height:40px;display:inline-flex;align-items:center}
+.bn-nav a[aria-current=page]{background:#D4AF37;color:#14284B;border-color:#D4AF37}
+.bn-nav a:focus-visible{outline:3px solid #fff;outline-offset:2px}
+.bn-foot{background:#14284B;color:#B9CBE4;text-align:center;padding:16px;font-family:'Cairo',system-ui,Tahoma,sans-serif;font-size:14px;line-height:1.9}
+.bn-foot b{color:#E9D28A;display:block;font-size:16px}
+@media print{.bn-head,.bn-foot{display:none}}

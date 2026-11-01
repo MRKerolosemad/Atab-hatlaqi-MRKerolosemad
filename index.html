@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>أتعب هتلاقي – أستاذ كيرلس عماد</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Reem+Kufi:wght@600;700&display=swap">
+<link rel="stylesheet" href="css/brand.css"><link rel="stylesheet" href="css/app.css"><link rel="stylesheet" href="css/universe.css">
+<style>.hero{background:#14284B;color:#fff;text-align:center;padding:26px 16px}.hero img{width:min(230px,60vw);height:auto}.hero h1{margin-top:8px}.hero .s{color:#E9D28A;font-family:var(--f-display);font-size:24px;margin-top:4px}.hero .m{color:#B9CBE4;margin-top:6px}</style>
+</head><body>
+<script src="js/layout.js" data-root="" data-page="index.html"></script>
+<section class="science-universe" id="scienceUniverseHero" aria-label="العالم العلمي التفاعلي">
+  <canvas id="universeCanvas" aria-hidden="true"></canvas>
+
+  <div class="universe-content">
+    <!-- الذرة التفاعلية ثلاثية الأبعاد -->
+    <div class="atom-stage" id="atomStage" role="button" tabindex="0" aria-label="ذرة ثلاثية الأبعاد تفاعلية، اضغط لتفعيل نبض الطاقة">
+      <div class="atom-3d" id="atom3D">
+        <div class="atom-nucleus" aria-hidden="true"></div>
+        <div class="orbit orbit-1" aria-hidden="true">
+          <div class="orbit-rotor"><div class="electron"></div></div>
+        </div>
+        <div class="orbit orbit-2" aria-hidden="true">
+          <div class="orbit-rotor"><div class="electron"></div></div>
+        </div>
+        <div class="orbit orbit-3" aria-hidden="true">
+          <div class="orbit-rotor"><div class="electron"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="atom-hint-pill" aria-hidden="true">
+      <span>✨ المس أو اضغط على الذرة لتفعيل نبض الطاقة</span>
+    </div>
+
+    <!-- العناوين السينمائية الهادفة -->
+    <div class="universe-titles">
+      <div class="universe-brand-row">
+        <img class="universe-logo" src="assets/logo.png" alt="شعار منصة أتعب هتلاقي – أستاذ كيرلس عماد">
+        <h1 class="universe-title">أتعب هتلاقي</h1>
+      </div>
+      <p class="universe-slogan">العلم رحلة اكتشاف.. ابدأ رحلتك</p>
+      <div class="universe-mottos">
+        <b>«أتعب تعويض ربنا كبير»</b>
+        <span>«الذين يزرعون بالدموع يحصدون بالابتهاج»</span>
+      </div>
+    </div>
+
+    <!-- بوابات أقسام المنصة الخمسة -->
+    <div class="portals-wrap">
+      <div class="portals-header">
+        <span>🚀 بوابات المعرفة والاستكشاف العلمي</span>
+      </div>
+      <div class="portals-grid">
+        <!-- 1. معمل قانون أوم -->
+        <a class="portal-card" href="labs/ohm.html" title="معمل قانون أوم التفاعلي">
+          <span class="portal-icon" aria-hidden="true">⚡</span>
+          <h2 class="portal-title">معمل قانون أوم</h2>
+          <p class="portal-desc">محاكاة تفاعلية فورية لتغيير الجهد والمقاومة ورسم المنحنيات</p>
+          <span class="portal-arrow">ادخل المعمل ←</span>
+        </a>
+
+        <!-- 2. تجارب ومنهج 3 إعدادي -->
+        <a class="portal-card" href="grade3.html" title="تجارب ومنهج الصف الثالث الإعدادي">
+          <span class="portal-icon" aria-hidden="true">🔬</span>
+          <h2 class="portal-title">تجارب ومنهج 3 إعدادي</h2>
+          <p class="portal-desc">جميع معامل الوحدة: المقاومات، الدوائر المختلطة، والطاقة والقدرة</p>
+          <span class="portal-arrow">استكشف التجارب ←</span>
+        </a>
+
+        <!-- 3. مثلثات القوانين والمفاتيح -->
+        <a class="portal-card" href="summary.html" title="مثلثات القوانين ومفاتيح الحفظ الذكية">
+          <span class="portal-icon" aria-hidden="true">📐</span>
+          <h2 class="portal-title">مثلثات القوانين والمفاتيح</h2>
+          <p class="portal-desc">مثلثات أوم والقدرة والشحنة ومفاتيح الحفظ (فري، بيت، كِت، مرن)</p>
+          <span class="portal-arrow">تصفح القوانين ←</span>
+        </a>
+
+        <!-- 4. بنك الاختبارات والشهادات -->
+        <a class="portal-card" href="quiz.html" title="بنك الاختبارات والشهادات المعتمدة">
+          <span class="portal-icon" aria-hidden="true">📝</span>
+          <h2 class="portal-title">بنك الاختبارات والشهادات</h2>
+          <p class="portal-desc">اختبارات إلكترونية قصيرة مع تصحيح فوري وتحليل لأخطائك</p>
+          <span class="portal-arrow">ابدأ الاختبار ←</span>
+        </a>
+
+        <!-- 5. مغامرة رحلة النجوم -->
+        <a class="portal-card" href="journey.html" title="مغامرة رحلة النجوم وخريطة التحدي">
+          <span class="portal-icon" aria-hidden="true">🚀</span>
+          <h2 class="portal-title">مغامرة رحلة النجوم</h2>
+          <p class="portal-desc">خريطة تفاعلية لجمع 24 نجمة والأوسمة ودبلومة وسام البطولة</p>
+          <span class="portal-arrow">خض المغامرة ←</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="wrap"><main>
+<p class="guide">اختر صفّك الدراسي للبدء. الصفوف المكتوب عليها «قريبًا» ستُفتح تباعًا بإذن الله.</p>
+<a class="btn" href="register.html" style="text-decoration:none;text-align:center;display:block;font-size:19px">📝 سجّل الآن</a>
+<div id="stages" style="display:flex;flex-direction:column;gap:14px"></div>
+<div class="tiles" id="visT" hidden style="grid-template-columns:1fr"><div class="tile r"><small>زيارات المنصة</small><b id="visN">—</b></div></div>
+<div class="tiles" id="yt" hidden style="grid-template-columns:repeat(2,minmax(0,1fr))"><div class="tile v"><small>مشتركو القناة</small><b id="ytS">—</b></div><div class="tile i"><small>مشاهدات القناة</small><b id="ytV">—</b></div></div>
+<section class="card" id="contact"><h2>للتواصل مع أستاذ كيرلس</h2><p style="margin:6px 0 10px">رقم الهاتف: <b class="ltr" id="ph"></b></p><div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn" id="tel" style="text-decoration:none" href="#">اتصال</a><a class="btn alt" id="wa" style="text-decoration:none" target="_blank" rel="noopener" href="#">واتساب</a><a class="btn alt" id="yc" style="text-decoration:none" target="_blank" rel="noopener" href="#" hidden>يوتيوب</a><a class="btn alt" id="tg" style="text-decoration:none" target="_blank" rel="noopener" href="#" hidden>تيليجرام</a><a class="btn alt" id="fb" style="text-decoration:none" target="_blank" rel="noopener" href="#" hidden>فيسبوك</a></div>
+<p class="lead" style="font-size:13px;margin-top:10px">نحسب عدد زيارات المنصة فقط (رقم عشوائي مجهول للجهاز)، بدون أي بيانات شخصية.</p><p style="margin-top:12px"><a href="teacher.html" style="font-size:14px;color:var(--muted)">لوحة متابعة المدرس</a></p></section>
+</main></div>
+<script src="js/grades.js"></script>
+<script>
+var lv={};STAGES.forEach(function(s){(lv[s.level]=lv[s.level]||[]).push(s);});
+document.getElementById('stages').innerHTML=Object.keys(lv).map(function(k){return '<h2 class="sec-h">'+k+'</h2><div class="cards">'+lv[k].map(function(s){return s.status==='open'?'<a class="xcard" href="'+s.url+'"><span class="ic" aria-hidden="true">'+s.icon+'</span><h2>'+s.title+'</h2><p>'+(s.desc||'')+'</p><span class="go">ادخل ←</span></a>':'<div class="xcard soon" aria-disabled="true"><span class="ic" aria-hidden="true">'+s.icon+'</span><h2>'+s.title+'</h2><span class="soon-b">قريبًا</span></div>';}).join('')+'</div>';}).join('');
+</script><script src="js/config.js"></script><script src="js/store.js"></script><script>
+var C=PLATFORM;document.getElementById('ph').textContent=C.phone;document.getElementById('tel').href='tel:'+C.phone;document.getElementById('wa').href='https://wa.me/'+C.waNumber;
+[['yc','channelUrl'],['tg','telegramUrl'],['fb','facebookUrl']].forEach(function(x){if(C[x[1]]){var a=document.getElementById(x[0]);a.href=C[x[1]];a.hidden=false;}});
+function fmtN(n){n=Number(n);return isNaN(n)?String(n):n.toLocaleString('ar-EG');}
+function showYT(s,v){document.getElementById('ytS').textContent=fmtN(s);document.getElementById('ytV').textContent=fmtN(v);document.getElementById('yt').hidden=false;}
+
+/* عدّاد الزيارات:) */
+(function(){if(!C.endpoint)return;var d=Store.get(),today=new Date().toISOString().slice(0,10);
+ if(d.lastVisit!==today){d.lastVisit=today;d.dev=d.dev||Math.random().toString(36).slice(2)+Date.now().toString(36);Store.set(d);
+  fetch(C.endpoint,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({type:'visit',dev:d.dev,page:'home'})}).catch(function(){});}
+ if(C.showVisits)fetch(C.endpoint+'?pub=1').then(function(r){return r.json();}).then(function(j){if(j&&j.total!=null){document.getElementById('visN').textContent=fmtN(j.total);document.getElementById('visT').hidden=false;}}).catch(function(){});
+})();
+var Y=C.yt||{};
+if(Y.apiKey&&Y.channelId){fetch('https://www.googleapis.com/youtube/v3/channels?part=statistics&id='+encodeURIComponent(Y.channelId)+'&key='+encodeURIComponent(Y.apiKey)).then(function(r){return r.json();}).then(function(d){var s=d.items&&d.items[0]&&d.items[0].statistics;if(s)showYT(s.subscriberCount,s.viewCount);else if(Y.manualSubs)showYT(Y.manualSubs,Y.manualViews);}).catch(function(){if(Y.manualSubs)showYT(Y.manualSubs,Y.manualViews);});}
+else if(Y.manualSubs||Y.manualViews)showYT(Y.manualSubs||'—',Y.manualViews||'—');
+</script><script src="js/audio.js"></script><script src="js/universe.js"></script><script src="js/helper.js" data-page="home" data-logo="assets/logo.png"></script></body></html>

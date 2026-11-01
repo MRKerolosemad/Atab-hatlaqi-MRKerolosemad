@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>معمل توصيل المقاومات – اكتشف بنفسك</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Reem+Kufi:wght@600;700&display=swap">
+<link rel="stylesheet" href="../css/brand.css"><link rel="stylesheet" href="../css/app.css">
+</head><body>
+<script src="../js/layout.js" data-root="../" data-page="labs/resistors.html"></script>
+<div class="wrap"><main>
+<div><h1>معمل توصيل المقاومات – اكتشف بنفسك</h1><p class="lead">الوحدة الثانية: الكهربية والمغناطيسية – الدرس الثاني: الدوائر الكهربية</p></div>
+<p class="guide">جرّب: اختر نوع التوصيل وعدد المقاومات، ثم حرّك المنزلقات وراقب المقاومة المكافئة والتيار. قبل أن تحرّك، حاول أن تتوقع النتيجة!</p>
+<section class="grid2">
+  <div class="card">
+    <span class="lbl">طريقة التوصيل</span>
+    <div class="seg" id="mode"><button type="button" data-m="series">على التوالي</button><button type="button" data-m="parallel">على التوازي</button></div>
+    <span class="lbl">عدد المقاومات</span>
+    <div class="seg" id="num"><button type="button" data-n="2">2</button><button type="button" data-n="3">3</button><button type="button" data-n="4">4</button></div>
+    <div class="srow" style="margin-top:12px"><label for="sv"><span>القوة الدافعة للمصدر V</span><span class="badge ltr" id="bV"></span></label><input type="range" id="sv" min="1" max="60" step="1" value="12"></div>
+    <label class="chk"><input type="checkbox" id="same" checked> مقاومات متماثلة (كما في الكتاب)</label>
+    <div id="rs"></div>
+    <svg class="circ" id="circ" viewBox="0 0 420 290" role="img" aria-label="الدائرة الكهربية" style="margin-top:12px"></svg>
+  </div>
+  <div class="card">
+    <div class="tiles" aria-live="polite"><div class="tile r"><small>المقاومة المكافئة R̃</small><b class="ltr" id="tReq"></b></div><div class="tile i"><small>التيار الكلي I</small><b class="ltr" id="tI"></b></div><div class="tile v"><small>فرق الجهد V</small><b class="ltr" id="tV"></b></div></div>
+    <p class="guide" id="insight" style="margin-top:12px" aria-live="polite"></p>
+    <h3 style="margin-top:14px">قيم كل مقاومة</h3>
+    <div class="tscroll"><table><thead><tr><th>المقاومة</th><th>R (Ω)</th><th>V (فولت)</th><th>I (أمبير)</th></tr></thead><tbody id="tb"></tbody></table></div>
+    <h3 style="margin-top:14px">الحل خطوة بخطوة</h3><ol class="steps" id="steps"></ol>
+  </div>
+</section>
+<section class="card"><h2>مقارنة التوالي والتوازي</h2><p class="lead">بنفس المقاومات والجهد الحاليين.</p>
+<div class="tscroll"><table><thead><tr><th></th><th>على التوالي</th><th>على التوازي</th></tr></thead><tbody id="cmp"></tbody></table></div></section>
+<section class="card"><h2>قوانين الامتحان (مقاومات متماثلة عددها n)</h2><div class="tscroll"><table><thead><tr><th></th><th>على التوالي</th><th>على التوازي</th></tr></thead><tbody>
+<tr><th>المقاومة المكافئة</th><td><span class="ltr">R̃ = R × n</span></td><td><span class="ltr">R̃ = R ÷ n</span></td></tr>
+<tr><th>قيمة المقاومة الواحدة</th><td><span class="ltr">R = R̃ ÷ n</span></td><td><span class="ltr">R = R̃ × n</span></td></tr>
+<tr><th>التيار الكلي</th><td colspan="2"><span class="ltr">I = V ÷ R̃</span></td></tr>
+<tr><th>التيار في كل مقاومة</th><td><span class="ltr">I₁ = I (نفس التيار الكلي)</span></td><td><span class="ltr">I₁ = I ÷ n</span></td></tr>
+<tr><th>الجهد على كل مقاومة</th><td><span class="ltr">V₁ = V ÷ n</span></td><td><span class="ltr">V₁ = V (جهد المصدر)</span></td></tr>
+</tbody></table></div></section>
+<section class="card"><h2>تحدّى نفسك: توقّع ثم احسب</h2><p class="lead">أسئلة متنوعة كما تأتي في الامتحان: المقاومة المكافئة، قيمة المقاومة الواحدة، التيار في كل مقاومة، وفرق الجهد على كل مقاومة.</p><p id="chq" style="margin-top:6px;font-weight:600"></p>
+<div id="chpw"><div id="chpw"><span class="lbl">توقعك: المقاومة المكافئة…</span><div class="seg" id="chp"><button type="button" data-p="more">أكبر من R</button><button type="button" data-p="less">أقل من R</button></div></div></div>
+<div class="qin"><input type="text" id="cha" inputmode="decimal" autocomplete="off" aria-label="قيمة المقاومة المكافئة"><b class="ltr" id="chu">Ω</b></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="btn" id="chk" type="button">تحقق</button><button class="btn alt" id="chn" type="button">تحدٍّ جديد</button><button class="btn alt" id="cha2" type="button">جرّبه في المعمل</button></div>
+<div class="fb info" id="chf" hidden aria-live="polite"></div></section>
+<p class="note lead">ملاحظة: الأمثلة والقوانين مأخوذة من صفحات الكتاب. أما الرسم التفاعلي، ودعم المقاومات المختلفة، والتحديات، فهي إضافات تفاعلية جديدة.</p>
+</main></div>
+<script src="../js/config.js"></script><script src="../js/physics.js"></script><script src="../js/resistors.js"></script>
+<script src="../js/video.js" data-video="res"></script><script src="../js/helper.js" data-page="res" data-logo="../assets/logo.png"></script>
+</body></html>

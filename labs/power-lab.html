@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>معمل القدرة الكهربية وتكلفة الاستهلاك</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Reem+Kufi:wght@600;700&display=swap">
+<link rel="stylesheet" href="../css/brand.css"><link rel="stylesheet" href="../css/app.css">
+<style>.row2{display:grid;grid-template-columns:1fr 130px;gap:8px;margin-top:8px;align-items:center}.row2 label{font-weight:700}.sel{font:inherit;font-weight:700;padding:9px;border-radius:10px;border:2px solid var(--line);background:var(--bg);color:var(--ink);min-height:46px;width:100%}.num{width:100%;direction:ltr;text-align:center;font:inherit;font-size:19px;font-weight:700;padding:8px;border-radius:10px;border:2px solid var(--line);background:var(--bg);color:var(--ink);min-height:46px}
+.bar{height:26px;border-radius:8px;background:var(--c-r);color:var(--on-c);font-weight:800;display:flex;align-items:center;padding:0 10px;margin-top:6px;direction:ltr;white-space:nowrap;overflow:hidden;transition:width .3s}.bar.o{background:var(--c-i)}
+.dev{background:var(--surface2);border-radius:12px;padding:12px}.res b.big{font-size:22px}</style>
+</head><body>
+<script src="../js/layout.js" data-root="../" data-page="labs/power-lab.html"></script>
+<div class="wrap"><main>
+<div><h1>معمل القدرة الكهربية</h1><p class="lead">طبّق قوانين القدرة والطاقة، واحسب تكلفة استهلاك أجهزتك. (تجربة جديدة مبنية على درس الطاقة والقدرة الكهربية)</p></div>
+<p class="guide">ابدأ بالقسم الأول لتحسب القدرة أو الطاقة أو الزمن مع تحويل الوحدات، ثم جرّب حاسبة التكلفة، ثم تحدَّ نفسك.</p>
+
+<section class="card"><h2>مثلث القدرة</h2><p class="lead">اضغط على الخانة التي لا تعرفها لتعرف قانونها. القمة هي الطاقة <span class="ltr">E</span>، والزمن <span class="ltr">t</span> والقدرة <span class="ltr">P</span> تحتها.</p><div id="triP" style="max-width:340px;margin:0 auto"></div></section>
+
+<section class="card"><h2>1) حاسبة القدرة والطاقة والزمن</h2>
+<span class="lbl">ماذا تريد أن تحسب؟</span>
+<div class="seg" id="unk"><button type="button" data-u="P">القدرة P</button><button type="button" data-u="E">الطاقة E</button><button type="button" data-u="t">الزمن t</button></div>
+<div id="inP" class="row2"><label for="vP">القدرة P</label><select id="uP" class="sel" aria-label="وحدة القدرة"><option value="1">W</option><option value="1000">kW</option></select><input class="num" id="vP" inputmode="decimal" value="100" aria-label="قيمة القدرة"></div>
+<div id="inE" class="row2"><label for="vE">الطاقة E</label><select id="uE" class="sel" aria-label="وحدة الطاقة"><option value="1">J</option><option value="1000">kJ</option><option value="3600000">kW.h</option></select><input class="num" id="vE" inputmode="decimal" value="900000" aria-label="قيمة الطاقة"></div>
+<div id="inT" class="row2"><label for="vT">الزمن t</label><select id="uT" class="sel" aria-label="وحدة الزمن"><option value="1">s</option><option value="60" selected>min</option><option value="3600">h</option></select><input class="num" id="vT" inputmode="decimal" value="10" aria-label="قيمة الزمن"></div>
+<div class="fb info res" id="calcOut" aria-live="polite" style="margin-top:12px"></div></section>
+
+<section class="card"><h2>2) حاسبة تكلفة الاستهلاك</h2><p class="lead">قارن بين جهازين. القيم الوسطية للأجهزة مأخوذة من جدول قدرة الأجهزة المنزلية.</p>
+<div class="row2"><label for="days">عدد أيام الشهر</label><input class="num" id="days" inputmode="decimal" value="30"></div>
+<div class="row2"><label for="price">سعر الكيلووات.ساعة (جنيه)</label><input class="num" id="price" inputmode="decimal" value="1.55"></div>
+<div class="grid2" style="margin-top:12px">
+<div class="dev"><h3>الجهاز الأول</h3><select id="d1" class="sel" aria-label="اختر الجهاز الأول" style="margin-top:8px"></select><div class="row2"><label for="p1">القدرة (W)</label><input class="num" id="p1" inputmode="decimal"></div><div class="row2"><label for="h1">ساعات التشغيل يوميًا</label><input class="num" id="h1" inputmode="decimal" value="12"></div><div class="res" id="o1" style="margin-top:10px"></div></div>
+<div class="dev"><h3>الجهاز الثاني</h3><select id="d2" class="sel" aria-label="اختر الجهاز الثاني" style="margin-top:8px"></select><div class="row2"><label for="p2">القدرة (W)</label><input class="num" id="p2" inputmode="decimal"></div><div class="row2"><label for="h2">ساعات التشغيل يوميًا</label><input class="num" id="h2" inputmode="decimal" value="12"></div><div class="res" id="o2" style="margin-top:10px"></div></div></div>
+<div id="bars" style="margin-top:12px"></div><p class="guide" id="cmpMsg" style="margin-top:12px" aria-live="polite"></p>
+<p class="lead" style="font-size:14px">الخطوات: kW = W ÷ 1000، ثم الساعات الكلية = ساعات اليوم × الأيام، ثم الطاقة = القدرة × الساعات، ثم التكلفة = الطاقة × السعر.</p></section>
+
+<section class="card"><h2>3) ماذا يحدث للقدرة؟</h2><p class="lead">الحالة الأولى: <span class="ltr">E₁ = 200 J</span> و<span class="ltr">t₁ = 20 s</span> (القدرة 10 W). غيّر الطاقة والزمن وشاهد القدرة الجديدة.</p>
+<div class="seg" id="cases"><button type="button" data-e="2" data-t="1">الحالة 1: E تتضاعف</button><button type="button" data-e="1" data-t="2">الحالة 2: t يتضاعف</button><button type="button" data-e="2" data-t="0.5">الحالة 3: E ×2 و t ÷2</button></div>
+<div class="row2"><label for="fe">معامل الطاقة (E₂ = k × E₁)</label><select id="fe" class="sel"><option value="0.5">× ½</option><option value="1" selected>× 1</option><option value="2">× 2</option><option value="3">× 3</option><option value="4">× 4</option></select></div>
+<div class="row2"><label for="ft">معامل الزمن (t₂ = k × t₁)</label><select id="ft" class="sel"><option value="0.25">× ¼</option><option value="0.5">× ½</option><option value="1" selected>× 1</option><option value="2">× 2</option><option value="4">× 4</option></select></div>
+<div id="pw" style="margin-top:12px"></div><p class="guide" id="pwMsg" style="margin-top:12px" aria-live="polite"></p></section>
+
+<section class="card"><h2>4) تحدّى نفسك</h2><p id="chq" style="margin-top:6px;font-weight:600"></p>
+<div class="qin"><input type="text" id="cha" inputmode="decimal" autocomplete="off" aria-label="إجابتك"><b class="ltr" id="chu"></b></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="btn" id="chk" type="button">تحقق</button><button class="btn alt" id="chn" type="button">تحدٍّ جديد</button></div><div class="fb info" id="chf" hidden aria-live="polite"></div></section>
+</main></div>
+<script src="../js/config.js"></script><script src="../js/tri.js"></script><script>Tri.mount("triP","power");</script><script src="../js/physics.js"></script><script src="../js/power.js"></script>
+<script src="../js/video.js" data-video="power"></script><script src="../js/helper.js" data-page="powerlab" data-logo="../assets/logo.png"></script>
+</body></html>

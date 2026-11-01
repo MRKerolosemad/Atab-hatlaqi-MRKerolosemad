@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>معمل قانون أوم</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Reem+Kufi:wght@600;700&display=swap">
+<style>
+  /* Layout: dark navy hero with a color-band resistor, then stacked cards: live circuit + graphs, verification table, Ohm triangle, quiz.
+     Palette: instrument blue (volts), amber (amps), teal (ohms) on a cool grey-blue ground. */
+  :root{
+    --bg:#EEF3F8; --surface:#FFFFFF; --surface2:#E6EDF4; --ink:#14223D; --muted:#566883; --line:#D2DDE8;
+    --hd:#14284B; --hd-ink:#FFFFFF; --hd-muted:#B9CBE4;
+    --c-v:#1F3E78; --c-i:#B85A05; --c-r:#0A8585; --on-c:#FFFFFF;
+    --good:#1B8049; --bad:#C23333; --good-bg:#E3F4EA; --bad-bg:#FBE7E7;
+    --f-display:'Reem Kufi','Cairo',system-ui,'Segoe UI',Tahoma,sans-serif;
+    --f-body:'Cairo',system-ui,'Segoe UI',Tahoma,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0B1424; --surface:#132238; --surface2:#1B2D49; --ink:#E7EEF7; --muted:#9DB0CB; --line:#27395A;
+      --hd:#0F1C33; --hd-ink:#FFFFFF; --hd-muted:#9DB4D6;
+      --c-v:#86AAFF; --c-i:#FFA84F; --c-r:#3FD0CB; --on-c:#0B1424;
+      --good:#58D68D; --bad:#FF7B7B; --good-bg:#12362A; --bad-bg:#3C1B22;
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0B1424; --surface:#132238; --surface2:#1B2D49; --ink:#E7EEF7; --muted:#9DB0CB; --line:#27395A;
+    --hd:#0F1C33; --hd-ink:#FFFFFF; --hd-muted:#9DB4D6;
+    --c-v:#86AAFF; --c-i:#FFA84F; --c-r:#3FD0CB; --on-c:#0B1424;
+    --good:#58D68D; --bad:#FF7B7B; --good-bg:#12362A; --bad-bg:#3C1B22;
+    color-scheme:dark;
+  }
+
+  *{box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.7;margin:0}
+  .wrap{max-width:1080px;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+  .ltr{direction:ltr;unicode-bidi:isolate;display:inline-block}
+  h1,h2,h3{font-family:var(--f-display);margin:0;font-weight:700;text-wrap:balance;line-height:1.3}
+  p{margin:0}
+  :focus-visible{outline:3px solid var(--c-i);outline-offset:2px}
+
+  /* hero */
+  .hero{background:var(--hd);color:var(--hd-ink)}
+  .hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px 32px;align-items:center;padding-block:30px 28px}
+  .hero h1{font-size:clamp(38px,8vw,60px)}
+  .hero .lead{color:var(--hd-muted);margin-top:6px;font-size:17px}
+  .scientist{margin-top:16px;display:inline-flex;flex-wrap:wrap;gap:4px 12px;align-items:baseline;padding:8px 14px;border:1px solid rgba(255,255,255,.22);border-radius:10px;font-size:15px}
+  .scientist b{font-family:var(--f-display);font-size:19px}
+  .scientist span{color:var(--hd-muted)}
+  .resistor-art{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0}
+  .resistor-art svg{width:min(250px,100%);height:auto;display:block}
+  .resistor-art small{color:var(--hd-muted);font-size:13px;text-align:center}
+  @media (max-width:640px){.hero .wrap{grid-template-columns:minmax(0,1fr)}}
+
+  main{display:flex;flex-direction:column;gap:20px;padding-block:20px 36px}
+  .law{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 20px;font-size:18px;font-weight:600;line-height:1.9}
+  .law mark{background:none;color:var(--c-i);font-weight:800}
+
+  .sec-head{display:flex;flex-direction:column;gap:2px;margin-bottom:12px}
+  .sec-head h2{font-size:24px}
+  .sec-head p{color:var(--muted);font-size:15px}
+
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;min-width:0}
+  .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,350px),1fr));gap:14px;align-items:start}
+  .grid2>*{min-width:0}
+  .stack{display:flex;flex-direction:column;gap:14px;min-width:0}
+
+  /* circuit */
+  .circuit{width:100%;height:auto;display:block;direction:ltr}
+  .circuit text{direction:ltr}
+  .w{stroke:var(--muted);stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .dot{fill:var(--c-i)}
+  .meter{fill:var(--surface);stroke:var(--ink);stroke-width:2.5}
+  .m-txt{fill:var(--ink);font-weight:700;font-family:var(--f-body)}
+  .cap{fill:var(--muted);font-size:12.5px;font-family:var(--f-body)}
+  .zig{stroke:var(--c-r);stroke-width:3.5;fill:none;stroke-linejoin:round;stroke-linecap:round}
+  .plate{stroke:var(--c-v);stroke-linecap:round}
+  .bg-fill{fill:var(--surface)}
+
+  .tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:6px}
+  .tile{border-radius:12px;padding:8px 6px 10px;text-align:center;color:var(--on-c)}
+  .tile.v{background:var(--c-v)} .tile.i{background:var(--c-i)} .tile.r{background:var(--c-r)}
+  .tile .let,.tile .val{display:block}
+  .tile .let{font-family:var(--f-display);font-size:26px;line-height:1.1}
+  .tile .val{font-size:clamp(20px,5.5vw,28px);font-weight:800;line-height:1.2;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+  .tile .nm{font-size:13px;opacity:.95}
+
+  .sliders{display:flex;flex-direction:column;gap:14px;margin-top:16px}
+  .srow label{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-weight:700;margin-bottom:2px}
+  .srow .badge{font-variant-numeric:tabular-nums;padding:0 10px;border-radius:8px;color:var(--on-c);font-weight:800}
+  .srow.v .badge{background:var(--c-v)} .srow.r .badge{background:var(--c-r)}
+  input[type=range]{width:100%;direction:ltr;height:34px;margin:0;cursor:pointer}
+  #sv{accent-color:var(--c-v)} #sr{accent-color:var(--c-r)}
+
+  .eq{margin-top:14px;padding:12px 10px;border-radius:12px;background:var(--surface2);text-align:center;font-size:clamp(19px,5vw,26px);font-weight:700;direction:ltr;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+  .eq .cv{color:var(--c-v)} .eq .ci{color:var(--c-i)} .eq .cr{color:var(--c-r)}
+  .trend{margin-top:10px;min-height:3.2em;padding:8px 12px;border-radius:10px;border:1px dashed var(--line);font-size:15.5px;font-weight:600}
+  .up{color:var(--good)} .dn{color:var(--bad)}
+  .meaning{margin-top:10px;color:var(--muted);font-size:14.5px}
+
+  /* graphs */
+  .gh{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+  .gh h3{font-size:18px}
+  .gh span{font-size:13px;color:var(--muted)}
+  .graph{width:100%;height:auto;display:block;direction:ltr}
+  .graph text{fill:var(--muted);font-size:11px;font-family:var(--f-body);direction:ltr}
+  .graph .gl{stroke:var(--line);stroke-width:1}
+  .graph .ax{stroke:var(--muted);stroke-width:1.8}
+  .graph .guide{stroke:var(--muted);stroke-width:1.3;stroke-dasharray:4 4}
+  .graph .name{fill:var(--ink);font-size:14px;font-weight:700}
+  .gcap{font-size:14.5px;margin-top:4px;font-weight:600}
+
+  /* table */
+  .tscroll{overflow-x:auto}
+  table{border-collapse:collapse;width:100%;min-width:320px;font-variant-numeric:tabular-nums;text-align:center}
+  th,td{padding:9px 8px;border-bottom:1px solid var(--line)}
+  th{background:var(--surface2);font-weight:700;font-size:14.5px}
+  th.v{color:var(--c-v)} th.i{color:var(--c-i)} th.r{color:var(--c-r)}
+  td.r{color:var(--c-r);font-weight:800}
+  .note{margin-top:10px;color:var(--muted);font-size:14.5px}
+
+  /* triangle */
+  .tri-wrap{display:flex;flex-wrap:wrap;gap:18px 28px;align-items:center;justify-content:center}
+  .tri-wrap svg{width:min(250px,100%);height:auto;display:block;direction:ltr;flex:none}
+  .tp{cursor:pointer;outline:none}
+  .tp polygon.fill{stroke:var(--surface);stroke-width:3;stroke-linejoin:round;transition:fill .18s}
+  .tp.v polygon.fill{fill:var(--c-v)} .tp.i polygon.fill{fill:var(--c-i)} .tp.r polygon.fill{fill:var(--c-r)}
+  .tp text{fill:var(--on-c);font-family:var(--f-display);font-weight:700;font-size:38px;text-anchor:middle;pointer-events:none}
+  .tp.covered polygon.fill{fill:var(--surface2);stroke:var(--muted);stroke-width:2;stroke-dasharray:5 4}
+  .tp.covered text{fill:var(--muted)}
+  .tp:focus-visible polygon.fill{stroke:var(--ink);stroke-width:4}
+  .tri-out{flex:1 1 260px;min-width:0;display:flex;flex-direction:column;gap:10px}
+  .tri-out .hint{color:var(--muted);font-size:15px}
+  .tri-formula{padding:14px 10px;border-radius:12px;background:var(--surface2);text-align:center;direction:ltr;font-size:clamp(18px,4.8vw,26px);font-weight:700;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+  .tri-formula .cv{color:var(--c-v)} .tri-formula .ci{color:var(--c-i)} .tri-formula .cr{color:var(--c-r)}
+
+  /* quiz */
+  .score{display:flex;gap:16px;flex-wrap:wrap;font-weight:700;margin-bottom:10px}
+  .score span{color:var(--muted);font-weight:600}
+  .qtext{font-size:18px;line-height:1.95;font-weight:600}
+  .qtext .ltr{font-weight:800;color:var(--c-v)}
+  .qrow{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:12px}
+  .qin{display:flex;align-items:center;gap:8px;flex:1 1 180px;min-width:0}
+  .qin input{flex:1;min-width:0;width:100%;direction:ltr;text-align:center;font:inherit;font-size:20px;font-weight:700;padding:8px 10px;border-radius:10px;border:2px solid var(--line);background:var(--bg);color:var(--ink)}
+  .qin input:focus-visible{border-color:var(--c-v)}
+  .qin .u{font-weight:800;color:var(--muted);min-width:2ch}
+  .btn{font:inherit;font-weight:700;border:0;border-radius:10px;padding:10px 20px;cursor:pointer;background:var(--c-v);color:var(--on-c)}
+  .btn.alt{background:var(--surface2);color:var(--ink)}
+  .btn:disabled{opacity:.45;cursor:default}
+  .fb{margin-top:12px;padding:10px 14px;border-radius:10px;font-weight:600;line-height:1.8}
+  .fb.ok{background:var(--good-bg);color:var(--good)}
+  .fb.no{background:var(--bad-bg);color:var(--bad)}
+  .fb.info{background:var(--surface2);color:var(--ink)}
+  .fb .sol{display:block;direction:ltr;text-align:center;font-size:19px;margin-top:4px;font-variant-numeric:tabular-nums}
+
+  footer{color:var(--muted);font-size:13.5px;text-align:center;padding-bottom:8px}
+
+  @media (prefers-reduced-motion:reduce){.tp polygon.fill{transition:none}}
+</style>
+
+
+
+<link rel="stylesheet" href="../css/brand.css">
+</head>
+<body>
+<script src="../js/layout.js" data-root="../" data-page="labs/ohm.html"></script>
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <h1>قانون أوم</h1>
+      <p class="lead">حرّك فرق الجهد والمقاومة وشاهد شدة التيار تتغير أمامك.</p>
+      <div class="scientist">
+        <b>جورج سيمون أوم</b>
+        <span>عالم فيزياء ألماني</span>
+        <span class="ltr">1789 – 1854</span>
+      </div>
+    </div>
+    <div class="resistor-art" aria-hidden="true">
+      <svg viewBox="0 0 250 90" xmlns="http://www.w3.org/2000/svg">
+        <line x1="2" y1="45" x2="62" y2="45" stroke="#C9D4E5" stroke-width="5" stroke-linecap="round"/>
+        <line x1="188" y1="45" x2="248" y2="45" stroke="#C9D4E5" stroke-width="5" stroke-linecap="round"/>
+        <path d="M60 30 Q60 16 82 16 L168 16 Q190 16 190 30 L190 60 Q190 74 168 74 L82 74 Q60 74 60 60 Z" fill="#D9B98A"/>
+        <rect x="80" y="16" width="14" height="58" fill="#D8262F"/>
+        <rect x="108" y="16" width="14" height="58" fill="#D8262F"/>
+        <rect x="136" y="16" width="14" height="58" fill="#1A1A1A"/>
+        <rect x="166" y="16" width="12" height="58" fill="#D4AF37"/>
+      </svg>
+      <small>مقاومة <span class="ltr">22 Ω</span>: أحمر، أحمر، أسود، ذهبي</small>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+<main>
+
+  <p class="law">تتناسب شدة التيار الكهربي المار في موصل <mark>تناسبًا طرديًا</mark> مع فرق الجهد بين طرفيه، عند <mark>ثبوت درجة الحرارة</mark>.</p>
+
+  <section aria-labelledby="h-lab">
+    <div class="sec-head">
+      <h2 id="h-lab">المعمل</h2>
+      <p>غيّر القيمتين بالمنزلقين، والدوائر الصغيرة تمثل التيار المار في السلك.</p>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <svg class="circuit" id="circuit" viewBox="0 0 420 262" role="img" aria-label="دائرة كهربية بسيطة تحتوي بطارية ومقاومة وأميتر وفولتميتر">
+          <!-- wires -->
+          <path class="w" d="M40 210 V100 H150 M270 100 H380 V210 H234 M186 210 H40"/>
+          <path class="w" d="M150 100 V34 H186 M270 100 V34 H234"/>
+          <g id="dots"></g>
+          <!-- battery -->
+          <rect class="bg-fill" x="14" y="126" width="52" height="46"/>
+          <line class="plate" x1="20" y1="136" x2="60" y2="136" stroke-width="4"/>
+          <line class="plate" x1="30" y1="154" x2="50" y2="154" stroke-width="7"/>
+          <text class="cap" x="72" y="140" style="direction:ltr">+</text>
+          <text class="cap" x="72" y="162" style="direction:ltr">−</text>
+          <text class="cap" x="124" y="152" text-anchor="middle">بطارية</text>
+          <!-- resistor -->
+          <rect class="bg-fill" x="150" y="84" width="120" height="32"/>
+          <path class="zig" d="M150 100 H162 L170 84 L186 116 L202 84 L218 116 L234 84 L250 116 L258 100 H270"/>
+          <text class="cap" x="210" y="74" text-anchor="middle">مقاومة</text>
+          <!-- voltmeter -->
+          <circle class="meter" cx="210" cy="34" r="24"/>
+          <text class="m-txt" id="vmTxt" x="210" y="39" text-anchor="middle" font-size="13" style="direction:ltr">20 V</text>
+          <text class="cap" x="296" y="38" text-anchor="middle">فولتميتر</text>
+          <!-- ammeter -->
+          <circle class="meter" cx="210" cy="210" r="24"/>
+          <text class="m-txt" id="amTxt" x="210" y="215" text-anchor="middle" font-size="13" style="direction:ltr">4 A</text>
+          <text class="cap" x="210" y="254" text-anchor="middle">أميتر</text>
+        </svg>
+
+        <div class="tiles" aria-live="polite">
+          <div class="tile v"><div class="let ltr">V</div><div class="val ltr" id="tV">20 V</div><div class="nm">فرق الجهد</div></div>
+          <div class="tile r"><div class="let ltr">R</div><div class="val ltr" id="tR">5 Ω</div><div class="nm">المقاومة</div></div>
+          <div class="tile i"><div class="let ltr">I</div><div class="val ltr" id="tI">4 A</div><div class="nm">شدة التيار</div></div>
+        </div>
+
+        <div class="sliders">
+          <div class="srow v">
+            <label for="sv"><span>فرق الجهد</span><span class="badge ltr" id="bV">20 V</span></label>
+            <input type="range" id="sv" min="1" max="50" step="1" value="20">
+          </div>
+          <div class="srow r">
+            <label for="sr"><span>المقاومة</span><span class="badge ltr" id="bR">5 Ω</span></label>
+            <input type="range" id="sr" min="1" max="50" step="1" value="5">
+          </div>
+        </div>
+
+        <div class="eq" id="eq"></div>
+        <div class="trend" id="trend" aria-live="polite">حرّك أحد المنزلقين وشاهد ماذا يحدث لشدة التيار.</div>
+        <p class="meaning" id="meaning"></p>
+      </div>
+
+      <div class="stack">
+        <div class="card">
+          <div class="gh"><h3>التيار والجهد</h3><span>المقاومة ثابتة</span></div>
+          <svg class="graph" id="g1" viewBox="0 0 320 220" role="img"></svg>
+          <p class="gcap" id="c1"></p>
+        </div>
+        <div class="card">
+          <div class="gh"><h3>التيار والمقاومة</h3><span>فرق الجهد ثابت</span></div>
+          <svg class="graph" id="g2" viewBox="0 0 320 220" role="img"></svg>
+          <p class="gcap" id="c2"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-tab">
+    <div class="sec-head">
+      <h2 id="h-tab">تحقيق القانون</h2>
+      <p>مثل نشاط الكتاب: المقاومة ثابتة وفرق الجهد يتغير.</p>
+    </div>
+    <div class="card">
+      <div class="tscroll">
+        <table>
+          <thead><tr><th class="v">فرق الجهد <span class="ltr">V</span></th><th class="i">شدة التيار <span class="ltr">I</span></th><th><span class="ltr">V ÷ I</span></th></tr></thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+      <p class="note" id="tnote"></p>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-tri">
+    <div class="sec-head">
+      <h2 id="h-tri">مثلث أوم</h2>
+      <p>اضغط على الحرف الذي تريد حسابه فيختفي، ويظهر القانون بأرقام المعمل.</p>
+    </div>
+    <div class="card">
+      <div class="tri-wrap">
+        <svg id="tri" viewBox="0 0 220 190" role="group" aria-label="مثلث أوم">
+          <g class="tp v" data-k="V" tabindex="0" role="button" aria-label="احسب فرق الجهد">
+            <polygon class="fill" points="110,8 164,100 56,100"/><text x="110" y="76">V</text>
+          </g>
+          <g class="tp r" data-k="R" tabindex="0" role="button" aria-label="احسب المقاومة">
+            <polygon class="fill" points="56,100 110,100 110,182 8,182"/><text x="63" y="156">R</text>
+          </g>
+          <g class="tp i" data-k="I" tabindex="0" role="button" aria-label="احسب شدة التيار">
+            <polygon class="fill" points="110,100 164,100 212,182 110,182"/><text x="158" y="156">I</text>
+          </g>
+        </svg>
+        <div class="tri-out">
+          <p class="hint" id="triHint"></p>
+          <div class="tri-formula" id="triF"></div>
+          <p class="hint">الأوم يكافئ فولت ÷ أمبير، أي <span class="ltr">Ω = V / A</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-quiz">
+    <div class="sec-head">
+      <h2 id="h-quiz">اختبر نفسك</h2>
+      <p>مسائل جديدة في كل مرة. اكتب الناتج واضغط تحقق.</p>
+    </div>
+    <div class="card">
+      <div class="score"><div>الصحيح: <b id="qs">0</b> من <b id="qt">0</b></div><span id="qstreak"></span></div>
+      <p class="qtext" id="qtext"></p>
+      <div class="qrow">
+        <div class="qin"><input id="qans" type="text" inputmode="decimal" autocomplete="off" aria-label="الإجابة"><span class="u ltr" id="qunit"></span></div>
+        <button class="btn" id="qcheck" type="button">تحقق</button>
+        <button class="btn alt" id="qnext" type="button">سؤال جديد</button>
+      </div>
+      <div class="fb info" id="qfb" aria-live="polite" hidden></div>
+    </div>
+  </section>
+
+  <p style="text-align:center;margin-bottom:12px"><a href="../quiz.html" style="font-weight:800;color:var(--c-v)">جاهز؟ ادخل اختبار قانون أوم واحصل على شهادة إنجاز ←</a></p>
+  <footer>المرجع: الدرس الثاني، الدوائر الكهربية، الوحدة الثانية: الكهربية والمغناطيسية</footer>
+</main>
+</div>
+
+<script>
+(function(){
+  var $ = function(id){return document.getElementById(id);};
+  var state = {V:20, R:5, cover:'I'};
+  var prev = {V:20, R:5};
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function fmt(n){ return String(Math.round(n*100)/100); }
+  function I(){ return state.V/state.R; }
+
+  /* ---------- circuit dots ---------- */
+  var NS='http://www.w3.org/2000/svg', LOOP=900, GAP=36, N=LOOP/GAP, dots=[], off=0;
+  var dg=$('dots');
+  for(var k=0;k<N;k++){
+    var c=document.createElementNS(NS,'circle'); c.setAttribute('r','4'); c.setAttribute('class','dot'); dg.appendChild(c); dots.push(c);
+  }
+  function pt(s){
+    s=((s%LOOP)+LOOP)%LOOP;
+    if(s<110) return [40,210-s];
+    if(s<450) return [40+(s-110),100];
+    if(s<560) return [380,100+(s-450)];
+    return [380-(s-560),210];
+  }
+  function place(){
+    for(var k=0;k<N;k++){ var p=pt(k*GAP+off); dots[k].setAttribute('cx',p[0].toFixed(1)); dots[k].setAttribute('cy',p[1].toFixed(1)); }
+  }
+  var last=null;
+  function tick(ts){
+    if(last===null) last=ts;
+    var dt=Math.min(0.05,(ts-last)/1000); last=ts;
+    var speed=25+Math.min(I(),30)*11;
+    off=(off+speed*dt)%LOOP; place();
+    requestAnimationFrame(tick);
+  }
+  place();
+  if(!reduce) requestAnimationFrame(tick);
+
+  /* ---------- graphs ---------- */
+  var NICE=[0.5,1,2,5,10,25,50,100];
+  function niceMax(v){ for(var i=0;i<NICE.length;i++){ if(NICE[i]>=v-1e-9) return NICE[i]; } return NICE[NICE.length-1]; }
+  function graph(svg,o){
+    var W=320,H=220,ml=40,mr=26,mt=22,mb=28;
+    var pw=W-ml-mr, ph=H-mt-mb;
+    var sx=function(x){return ml+x/o.xmax*pw;}, sy=function(y){return H-mb-y/o.ymax*ph;};
+    var s='';
+    for(var i=0;i<=5;i++){
+      var gx=o.xmax*i/5, gy=o.ymax*i/5;
+      s+='<line class="gl" x1="'+sx(gx)+'" y1="'+(mt)+'" x2="'+sx(gx)+'" y2="'+(H-mb)+'"/>';
+      s+='<line class="gl" x1="'+ml+'" y1="'+sy(gy)+'" x2="'+(W-mr)+'" y2="'+sy(gy)+'"/>';
+      s+='<text x="'+sx(gx)+'" y="'+(H-mb+14)+'" text-anchor="middle">'+fmt(gx)+'</text>';
+      s+='<text x="'+(ml-6)+'" y="'+(sy(gy)+4)+'" text-anchor="end">'+fmt(gy)+'</text>';
+    }
+    s+='<line class="ax" x1="'+ml+'" y1="'+(H-mb)+'" x2="'+(W-mr+6)+'" y2="'+(H-mb)+'"/>';
+    s+='<line class="ax" x1="'+ml+'" y1="'+(H-mb)+'" x2="'+ml+'" y2="'+(mt-8)+'"/>';
+    var pts=[]; var n=120;
+    for(var j=0;j<=n;j++){ var x=o.x0+(o.xmax-o.x0)*j/n; var y=o.f(x); if(y>o.ymax) y=o.ymax; pts.push(sx(x).toFixed(1)+','+sy(y).toFixed(1)); }
+    s+='<polyline points="'+pts.join(' ')+'" fill="none" stroke="'+o.color+'" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>';
+    var px=sx(o.px), py=sy(o.py);
+    s+='<line class="guide" x1="'+px+'" y1="'+py+'" x2="'+px+'" y2="'+(H-mb)+'"/>';
+    s+='<line class="guide" x1="'+px+'" y1="'+py+'" x2="'+ml+'" y2="'+py+'"/>';
+    s+='<circle cx="'+px+'" cy="'+py+'" r="7" fill="var(--c-i)" stroke="var(--surface)" stroke-width="3"/>';
+    s+='<text class="name" x="'+(W-mr+10)+'" y="'+(H-mb+5)+'" text-anchor="middle">'+o.xn+'</text>';
+    s+='<text class="name" x="'+ml+'" y="'+(mt-9)+'" text-anchor="middle">I</text>';
+    svg.innerHTML=s;
+    svg.setAttribute('aria-label',o.label);
+  }
+
+  /* ---------- quiz ---------- */
+  var Rs=[2,3,4,5,10,12,20,22,25,44], Is=[1,2,3,4,5,6,8,10];
+  var objs=['موصل','سلك معدني','ملف سخان كهربي','مصباح','محرك صغير'];
+  var q=null, answered=false, score=0, total=0, streak=0;
+  function pick(a){return a[Math.floor(Math.random()*a.length)];}
+  function L(t){return '<span class="ltr">'+t+'</span>';}
+  function solution(q){
+    if(q.unknown==='R') return 'R = V ÷ I = '+q.V+' ÷ '+q.I+' = '+q.R+' Ω';
+    if(q.unknown==='I') return 'I = V ÷ R = '+q.V+' ÷ '+q.R+' = '+q.I+' A';
+    return 'V = R × I = '+q.R+' × '+q.I+' = '+q.V+' V';
+  }
+  function newQ(){
+    var R=pick(Rs), Ii=pick(Is), u=pick(['R','I','V']), o=pick(objs);
+    q={R:R,I:Ii,V:R*Ii,unknown:u,obj:o}; answered=false;
+    var t;
+    if(u==='R') t='احسب مقاومة '+o+' إذا مرّ فيه تيار شدته '+L(Ii+' A')+' وكان فرق الجهد بين طرفيه '+L(R*Ii+' V')+'.';
+    else if(u==='I') t='احسب شدة التيار المار في '+o+' مقاومته '+L(R+' Ω')+' إذا كان فرق الجهد بين طرفيه '+L(R*Ii+' V')+'.';
+    else t='احسب فرق الجهد بين طرفي '+o+' مقاومته '+L(R+' Ω')+' ويمر فيه تيار شدته '+L(Ii+' A')+'.';
+    $('qtext').innerHTML=t;
+    $('qunit').textContent = u==='R'?'Ω':(u==='I'?'A':'V');
+    var inp=$('qans'); inp.value=''; inp.disabled=false;
+    $('qcheck').disabled=false;
+    $('qfb').hidden=true;
+  }
+  function parse(v){
+    var map='٠١٢٣٤٥٦٧٨٩';
+    v=String(v).replace(/[٠-٩]/g,function(d){return map.indexOf(d);}).replace('٫','.').replace(',','.').trim();
+    return v===''?NaN:Number(v);
+  }
+  function check(){
+    if(answered) return;
+    var x=parse($('qans').value), fb=$('qfb'); fb.hidden=false;
+    if(isNaN(x)){ fb.className='fb info'; fb.textContent='اكتب رقمًا أولًا.'; return; }
+    answered=true; total++;
+    var ok=Math.abs(x-q[q.unknown])<0.01;
+    if(ok){ score++; streak++; } else { streak=0; }
+    fb.className='fb '+(ok?'ok':'no');
+    fb.innerHTML=(ok?'إجابة صحيحة، أحسنت.':'الإجابة الصحيحة هي '+L(q[q.unknown]+' '+$('qunit').textContent)+'. راجع الحل:')+'<span class="sol">'+solution(q)+'</span>';
+    $('qs').textContent=score; $('qt').textContent=total;
+    $('qstreak').textContent=streak>=2?('إجابات صحيحة متتالية: '+streak):'';
+    $('qcheck').disabled=true; $('qans').disabled=true;
+    $('qnext').focus();
+  }
+  $('qcheck').addEventListener('click',check);
+  $('qnext').addEventListener('click',function(){newQ(); $('qans').focus();});
+  $('qans').addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); check(); } });
+
+  /* ---------- triangle ---------- */
+  function setCover(k){ state.cover=k; render(); }
+  Array.prototype.forEach.call(document.querySelectorAll('.tp'),function(g){
+    g.addEventListener('click',function(){ setCover(g.getAttribute('data-k')); });
+    g.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); setCover(g.getAttribute('data-k')); } });
+  });
+
+  /* ---------- main render ---------- */
+  function render(){
+    var V=state.V, R=state.R, i=I(), sv=fmt(V), sr=fmt(R), si=fmt(i);
+    $('tV').textContent=sv+' V'; $('tR').textContent=sr+' Ω'; $('tI').textContent=si+' A';
+    $('bV').textContent=sv+' V'; $('bR').textContent=sr+' Ω';
+    $('vmTxt').textContent=sv+' V';
+    var am=$('amTxt'); am.textContent=si+' A'; am.setAttribute('font-size', (si.length>3?11:13));
+    $('eq').innerHTML='<span class="ci">I</span> = <span class="cv">V</span> ÷ <span class="cr">R</span> = <span class="cv">'+sv+'</span> ÷ <span class="cr">'+sr+'</span> = <span class="ci">'+si+' A</span>';
+    $('meaning').innerHTML='مقاومة الموصل '+L(sr+' Ω')+' تعني أن النسبة بين فرق الجهد وشدة التيار تساوي '+L(sr+' V/A')+' مهما تغير الجهد.';
+
+    graph($('g1'),{xmax:50,x0:0,ymax:niceMax(50/R),f:function(x){return x/R;},px:V,py:i,color:'var(--c-v)',xn:'V',label:'رسم بياني خط مستقيم: شدة التيار مقابل فرق الجهد'});
+    $('c1').innerHTML='عند '+L(sv+' V')+' تكون شدة التيار '+L(si+' A')+'. الخط مستقيم ويمر بنقطة الأصل.';
+    graph($('g2'),{xmax:50,x0:1,ymax:niceMax(V),f:function(x){return V/x;},px:R,py:i,color:'var(--c-r)',xn:'R',label:'رسم بياني منحنى: شدة التيار مقابل المقاومة'});
+    $('c2').innerHTML='عند '+L(sr+' Ω')+' تكون شدة التيار '+L(si+' A')+'. كلما زادت المقاومة قلّ التيار.';
+
+    var rows='';
+    for(var k=1;k<=5;k++){
+      var v=k*10, cur=v/R;
+      rows+='<tr><td>'+v+'</td><td>'+fmt(cur)+'</td><td class="r">'+fmt(v/cur)+'</td></tr>';
+    }
+    $('tbody').innerHTML=rows;
+    $('tnote').innerHTML='المقاومة الحالية '+L(sr+' Ω')+'. خارج قسمة الجهد على التيار يساوي مقدارًا ثابتًا في كل صف، وهو قيمة المقاومة.';
+
+    // triangle
+    Array.prototype.forEach.call(document.querySelectorAll('.tp'),function(g){
+      var k=g.getAttribute('data-k'), cov=(k===state.cover);
+      g.classList.toggle('covered',cov);
+      g.setAttribute('aria-pressed',cov?'true':'false');
+      g.querySelector('text').textContent = cov ? '؟' : k;
+    });
+    var f='';
+    var c=state.cover;
+    if(c==='V') f='<span class="cv">V</span> = <span class="cr">R</span> × <span class="ci">I</span> = <span class="cr">'+sr+'</span> × <span class="ci">'+si+'</span> = <span class="cv">'+sv+' V</span>';
+    else if(c==='R') f='<span class="cr">R</span> = <span class="cv">V</span> ÷ <span class="ci">I</span> = <span class="cv">'+sv+'</span> ÷ <span class="ci">'+si+'</span> = <span class="cr">'+sr+' Ω</span>';
+    else f='<span class="ci">I</span> = <span class="cv">V</span> ÷ <span class="cr">R</span> = <span class="cv">'+sv+'</span> ÷ <span class="cr">'+sr+'</span> = <span class="ci">'+si+' A</span>';
+    $('triF').innerHTML=f;
+    var nm={V:'فرق الجهد',R:'المقاومة',I:'شدة التيار'};
+    var how = c==='V' ? 'الحرفان المتبقيان بجانب بعضهما، فيُضربان.' : 'الحرف V في الأعلى، فيُقسم على الحرف الذي بجانبه من الأسفل.';
+    $('triHint').textContent='غطيت '+nm[c]+'. '+how;
+  }
+
+  /* ---------- trend message ---------- */
+  function trend(changed){
+    var el=$('trend'), up='<span class="up">▲</span>', dn='<span class="dn">▼</span>';
+    if(changed==='V'){
+      var inc=state.V>prev.V;
+      el.innerHTML='فرق الجهد '+(inc?up:dn)+' ⟵ شدة التيار '+(inc?up:dn)+' <span style="color:var(--muted);font-weight:400">(المقاومة ثابتة: علاقة طردية)</span>';
+    } else {
+      var incR=state.R>prev.R;
+      el.innerHTML='المقاومة '+(incR?up:dn)+' ⟵ شدة التيار '+(incR?dn:up)+' <span style="color:var(--muted);font-weight:400">(فرق الجهد ثابت: علاقة عكسية)</span>';
+    }
+  }
+  $('sv').addEventListener('input',function(e){ prev.V=state.V; state.V=Number(e.target.value); if(prev.V!==state.V) trend('V'); render(); });
+  $('sr').addEventListener('input',function(e){ prev.R=state.R; state.R=Number(e.target.value); if(prev.R!==state.R) trend('R'); render(); });
+
+  render(); newQ();
+})();
+</script>
+
+<script src="../js/config.js"></script><script src="../js/video.js" data-video="ohm"></script><script src="../js/helper.js" data-page="ohm" data-logo="../assets/logo.png"></script>
+</body>
+</html>

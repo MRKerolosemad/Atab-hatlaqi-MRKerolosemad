@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>معمل الدوائر المختلطة</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Reem+Kufi:wght@600;700&display=swap">
+<link rel="stylesheet" href="../css/brand.css"><link rel="stylesheet" href="../css/app.css">
+</head><body>
+<script src="../js/layout.js" data-root="../" data-page="labs/mixed.html"></script>
+<div class="wrap"><main>
+<div><h1>معمل الدوائر المختلطة</h1><p class="lead">توالٍ وتوازٍ معًا، والمقاومات متماثلة داخل كل مجموعة لنستخدم القانونين <span class="ltr">R×n</span> و<span class="ltr">R÷n</span> فقط (إضافة على درس توصيل المقاومات).</p></div>
+<p class="guide">اختر شكل الدائرة، وجرّب «مثال محلول»، ثم غيّر القيم. الحل يتبع خطوات ثابتة: بسّط المتوازي، ثم المقاومة المكافئة، ثم التيار الكلي، ثم التوزيع.</p>
+<section class="grid2">
+ <div class="card"><span class="lbl">شكل الدائرة</span>
+  <div class="seg" id="top" style="flex-direction:column"><button type="button" data-t="A">شكل 1: مقاومة على التوالي مع مجموعة متماثلة على التوازي</button><button type="button" data-t="B">شكل 2: فروع متماثلة على التوازي، في كل فرع مقاومتان على التوالي</button><button type="button" data-t="C">شكل 3: مجموعتان على التوالي، في كل مجموعة مقاومتان متماثلتان على التوازي</button></div>
+  <span class="lbl">أمثلة محلولة</span><div class="seg" id="ex"><button type="button" data-e="0">مثال 1</button><button type="button" data-e="1">مثال 2</button><button type="button" data-e="2">مثال 3</button></div>
+  <div class="srow" style="margin-top:12px"><label for="sv"><span>القوة الدافعة V</span><span class="badge ltr" id="bV"></span></label><input type="range" id="sv" min="1" max="60" value="12"></div>
+  <div id="rs"></div>
+  <svg class="circ" id="circ" viewBox="0 0 420 290" role="img" aria-label="الدائرة المختلطة" style="margin-top:12px"></svg></div>
+ <div class="card"><div class="tiles" aria-live="polite"><div class="tile r"><small>المقاومة المكافئة R̃</small><b class="ltr" id="tReq"></b></div><div class="tile i"><small>التيار الكلي I</small><b class="ltr" id="tI"></b></div><div class="tile v"><small>فرق الجهد V</small><b class="ltr" id="tV"></b></div></div>
+  <h3 style="margin-top:14px">قيم كل مقاومة</h3><div class="tscroll"><table><thead><tr><th>المقاومة</th><th>R (Ω)</th><th>V (فولت)</th><th>I (أمبير)</th></tr></thead><tbody id="tb"></tbody></table></div>
+  <h3 style="margin-top:14px">الحل خطوة بخطوة</h3><ol class="steps" id="steps"></ol></div>
+</section>
+<section class="card"><h2>تحدّى نفسك</h2><p id="chq" style="margin-top:6px;font-weight:600"></p>
+<div class="qin"><input type="text" id="cha" inputmode="decimal" autocomplete="off" aria-label="المقاومة المكافئة"><b class="ltr" id="cu">Ω</b></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="btn" id="chk" type="button">تحقق</button><button class="btn alt" id="chn" type="button">تحدٍّ جديد</button></div><div class="fb info" id="chf" hidden aria-live="polite"></div></section>
+</main></div>
+<script src="../js/config.js"></script><script src="../js/physics.js"></script><script src="../js/mixed.js"></script>
+<script src="../js/video.js" data-video="mixed"></script><script src="../js/helper.js" data-page="mixed" data-logo="../assets/logo.png"></script>
+</body></html>

@@ -1,0 +1,22 @@
+/* تشغيل: node tests.js */
+var P=require('./js/physics.js'),assert=require('assert');global.window={};
+var near=function(a,b){assert(Math.abs(a-b)<1e-9,a+' != '+b);};
+near(P.series([6,6,6]),18);near(P.parallel([6,6,6]),2);near(P.parallel([30,30,30]),10);
+var a=P.analyze('series',[25,25,25,25],100);near(a.Req,100);near(a.I,1);a.branches.forEach(function(b){near(b.I,1);near(b.V,25);});
+a=P.analyze('parallel',[30,30,30],45);near(a.I,4.5);a.branches.forEach(function(b){near(b.I,1.5);near(b.V,45);});
+a=P.analyze('series',[3,3],12);near(a.branches[0].V,6);
+a=P.analyze('parallel',[60,60,60],100);near(a.Req,20);near(a.I,5);
+a=P.analyze('parallel',[10,40],20);near(a.Req,8);near(a.branches[0].I+a.branches[1].I,a.I);
+a=P.analyze('series',[10,40],50);near(a.branches[0].V+a.branches[1].V,50);
+near(P.current(12,4),3);
+require('./js/questions.js');
+window.QUIZZES.forEach(function(z){z.questions.forEach(function(q,i){assert(q.a>=0&&q.a<q.o.length&&q.o.length>=3,z.id+' q'+i);assert(q.e);});});
+var m=P.mixed('A',{R1:4,R:12,n:3},12);near(m.Req,8);near(m.I,1.5);near(m.parts[0].V,6);near(m.parts[1].I,0.5);near(m.parts[1].V,6);near(m.parts[1].I*3,m.I);near(m.parts[0].V+m.parts[1].V,12);
+m=P.mixed('B',{R:3,m:2},12);near(m.Req,3);near(m.I,4);near(m.parts[0].I,2);near(m.parts[0].V,6);near(m.parts[0].V+m.parts[1].V,12);
+m=P.mixed('C',{Ra:6,Rb:4},10);near(m.Req,5);near(m.I,2);near(m.parts[0].V,6);near(m.parts[2].V,4);near(m.parts[0].I,1);near(m.parts[0].V+m.parts[2].V,10);
+m=P.mixed('A',{R1:2,R:6,n:3},12);near(m.Req,4);m=P.mixed('B',{R:6,m:3},12);near(m.Req,4);
+window.QUIZZES.forEach(function(z){z.questions.forEach(function(q){assert(window.TAGS[q.t],'tag '+q.t);});});
+near(P.powerP(9e5,600),1500);near(P.powerE(88,60),5280);near(P.powerT(1800000,250),7200);near(P.powerE(100,5*3600),1800000);near(P.KWH,3600000);
+var c1=P.cost(12,12,30,1.55),c2=P.cost(20,12,30,1.55);near(c1.E,4.32);near(c2.E,7.2);near(c1.cost,6.696);near(c2.cost,11.16);near(c1.hours,360);
+near(P.cost(3000,6,30,1.55).E,540);near(P.cost(3000,6,30,1.55).cost,837);
+console.log('كل الاختبارات نجحت');

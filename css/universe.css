@@ -1,0 +1,402 @@
+/* أنماط العالم العلمي التفاعلي (Interactive Science Universe) - منصة أتعب هتلاقي */
+
+.science-universe {
+  position: relative;
+  background: radial-gradient(circle at 50% 38%, #162C54 0%, #0D1932 50%, #060B17 100%);
+  color: #fff;
+  overflow: hidden;
+  padding: 34px 16px 36px;
+  border-bottom: 3px solid #D4AF37;
+  box-shadow: 0 10px 35px rgba(6, 11, 23, 0.4);
+}
+
+/* كانفاس الجزيئات وموجات الطاقة */
+#universeCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* الحاوية المركزية للعناصر */
+.universe-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+}
+
+/* مسرح الذرة التفاعلية ثلاثية الأبعاد */
+.atom-stage {
+  width: 220px;
+  height: 220px;
+  position: relative;
+  perspective: 900px;
+  cursor: pointer;
+  user-select: none;
+  touch-action: none;
+  margin: 6px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.atom-3d {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  will-change: transform;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* نواة الذرة المتوهجة */
+.atom-nucleus {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #FFFBEB 0%, #FBBF24 45%, #D97706 85%, #92400E 100%);
+  box-shadow: 
+    0 0 25px rgba(245, 158, 11, 0.85),
+    0 0 60px rgba(212, 175, 55, 0.5),
+    inset 0 0 10px rgba(255, 255, 255, 0.8);
+  position: relative;
+  z-index: 10;
+  animation: nucleus-breathe 3s ease-in-out infinite alternate;
+}
+
+@keyframes nucleus-breathe {
+  0% {
+    transform: scale(0.96);
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.7), 0 0 45px rgba(212, 175, 55, 0.4);
+  }
+  100% {
+    transform: scale(1.06);
+    box-shadow: 0 0 35px rgba(245, 158, 11, 1), 0 0 75px rgba(212, 175, 55, 0.75);
+  }
+}
+
+/* المدارات البيضاوية للإلكترونات */
+.orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 210px;
+  height: 80px;
+  margin-top: -40px;
+  margin-left: -105px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0, 240, 255, 0.45);
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.2);
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+
+.orbit-1 {
+  transform: rotateZ(25deg) rotateX(70deg);
+  border-color: rgba(0, 240, 255, 0.6);
+}
+
+.orbit-2 {
+  transform: rotateZ(85deg) rotateX(70deg);
+  border-color: rgba(212, 175, 55, 0.65);
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.25);
+}
+
+.orbit-3 {
+  transform: rotateZ(145deg) rotateX(70deg);
+  border-color: rgba(96, 165, 250, 0.65);
+  box-shadow: 0 0 12px rgba(96, 165, 250, 0.25);
+}
+
+/* حركة الإلكترونات الدائرية حول المدارات */
+.orbit-rotor {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  animation: orbit-spin 4s linear infinite;
+}
+
+.orbit-2 .orbit-rotor {
+  animation-duration: 5.2s;
+  animation-direction: reverse;
+}
+
+.orbit-3 .orbit-rotor {
+  animation-duration: 3.6s;
+}
+
+@keyframes orbit-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.electron {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 13px;
+  height: 13px;
+  margin-top: -6.5px;
+  margin-left: -6.5px;
+  border-radius: 50%;
+  background: #00F0FF;
+  box-shadow: 0 0 14px #00F0FF, 0 0 24px rgba(0, 240, 255, 0.9);
+}
+
+.orbit-2 .electron {
+  background: #FDE047;
+  box-shadow: 0 0 14px #FDE047, 0 0 24px rgba(253, 224, 71, 0.9);
+}
+
+.orbit-3 .electron {
+  background: #60A5FA;
+  box-shadow: 0 0 14px #60A5FA, 0 0 24px rgba(96, 165, 250, 0.9);
+}
+
+/* تلميح النقر على الذرة */
+.atom-hint-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(0, 240, 255, 0.12);
+  border: 1px solid rgba(0, 240, 255, 0.35);
+  color: #7DD3FC;
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  margin-top: -4px;
+  transition: all 0.2s;
+}
+
+.atom-stage:hover + .atom-hint-pill,
+.atom-stage:active + .atom-hint-pill {
+  background: rgba(212, 175, 55, 0.2);
+  border-color: #D4AF37;
+  color: #FDE047;
+}
+
+/* النصوص السينمائية */
+.universe-titles {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.universe-brand-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.universe-logo {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  border: 2px solid #D4AF37;
+  background: #fff;
+  object-fit: contain;
+  box-shadow: 0 0 16px rgba(212, 175, 55, 0.4);
+}
+
+.universe-title {
+  font-family: var(--f-display, 'Cairo', sans-serif);
+  font-size: clamp(34px, 6.5vw, 52px);
+  margin: 0;
+  font-weight: 800;
+  line-height: 1.2;
+  background: linear-gradient(135deg, #FFFFFF 0%, #FFFBEB 35%, #FDE047 65%, #D4AF37 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 4px 20px rgba(212, 175, 55, 0.25);
+  animation: cinematic-glow 4s ease-in-out infinite alternate;
+}
+
+@keyframes cinematic-glow {
+  0% { filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.3)); }
+  100% { filter: drop-shadow(0 0 22px rgba(0, 240, 255, 0.6)); }
+}
+
+.universe-slogan {
+  font-family: var(--f-display, 'Cairo', sans-serif);
+  font-size: clamp(20px, 4vw, 28px);
+  color: #00F0FF;
+  font-weight: 700;
+  margin: 2px 0 0;
+  text-shadow: 0 2px 14px rgba(0, 240, 255, 0.45);
+  letter-spacing: 0.5px;
+}
+
+.universe-mottos {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 15px;
+  color: #B9CBE4;
+  margin-top: 4px;
+}
+
+.universe-mottos b {
+  color: #E9D28A;
+  font-weight: 700;
+}
+
+/* شبكة بوابات أقسام المنصة الخمسة */
+.portals-wrap {
+  width: 100%;
+  max-width: 1040px;
+  margin-top: 14px;
+}
+
+.portals-header {
+  font-family: var(--f-display, 'Cairo', sans-serif);
+  font-size: 18px;
+  font-weight: 700;
+  color: #E9D28A;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.portals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  width: 100%;
+}
+
+@media (max-width: 600px) {
+  .portals-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .portal-card:last-child:nth-child(odd) {
+    grid-column: span 2;
+  }
+}
+
+/* بطاقة البوابة التفاعلية */
+.portal-card {
+  background: rgba(15, 30, 58, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1.5px solid rgba(212, 175, 55, 0.35);
+  border-radius: 16px;
+  padding: 14px 12px;
+  text-decoration: none;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  position: relative;
+  overflow: hidden;
+  touch-action: manipulation;
+}
+
+.portal-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  transition: left 0.5s ease;
+  pointer-events: none;
+}
+
+.portal-card:hover,
+.portal-card:focus-visible {
+  transform: translateY(-5px) scale(1.02);
+  border-color: #00F0FF;
+  background: rgba(20, 45, 85, 0.85);
+  box-shadow: 0 8px 24px rgba(0, 240, 255, 0.3), 0 0 12px rgba(212, 175, 55, 0.4);
+  outline: none;
+}
+
+.portal-card:hover::before {
+  left: 100%;
+}
+
+.portal-card:active {
+  transform: scale(0.96);
+  border-color: #D4AF37;
+}
+
+.portal-icon {
+  font-size: 32px;
+  line-height: 1;
+  filter: drop-shadow(0 2px 8px rgba(0, 240, 255, 0.4));
+  transition: transform 0.25s ease;
+}
+
+.portal-card:hover .portal-icon {
+  transform: scale(1.15) rotate(5deg);
+}
+
+.portal-title {
+  font-family: var(--f-display, 'Cairo', sans-serif);
+  font-size: 16.5px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0;
+  text-align: center;
+}
+
+.portal-desc {
+  font-size: 12px;
+  color: #B9CBE4;
+  margin: 0;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.portal-arrow {
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: 800;
+  color: #D4AF37;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  transition: transform 0.2s ease;
+}
+
+.portal-card:hover .portal-arrow {
+  transform: translateX(-4px);
+  color: #00F0FF;
+}
+
+/* دعم تفضيلات تقليل الحركة prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .orbit-rotor,
+  .atom-nucleus,
+  .universe-title {
+    animation: none !important;
+  }
+  .portal-card {
+    transition: none !important;
+  }
+  .portal-card:hover {
+    transform: none !important;
+  }
+}

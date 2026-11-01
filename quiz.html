@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>الاختبارات والشهادات – أتعب هتلاقي</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Reem+Kufi:wght@600;700&display=swap">
+<link rel="stylesheet" href="css/brand.css"><link rel="stylesheet" href="css/app.css">
+</head><body>
+<script src="js/layout.js" data-root="" data-page="quiz.html"></script>
+<div class="wrap"><main>
+<section id="vStart" class="card"><h1>الاختبارات والشهادات</h1>
+<p class="guide" style="margin:10px 0">اكتب اسمك، واختر الاختبار. عند تحقيق درجة النجاح <b class="ltr" id="passTxt"></b> تحصل على شهادة إنجاز تعليمية باسمك.</p>
+<label class="lbl" for="sname">اسم الطالب/الطالبة</label><input class="field ar" id="sname" type="text" maxlength="60" autocomplete="off" placeholder="اكتب اسمك الثلاثي">
+<div class="fb info" id="nameErr" hidden style="margin-top:6px">اكتب اسمك الثلاثي (3 كلمات على الأقل) من فضلك.</div>
+<label class="lbl" for="sphone" style="margin-top:10px;display:block">رقم هاتف الطالب / ولي الأمر</label><input class="field" id="sphone" type="tel" maxlength="11" inputmode="numeric" autocomplete="off" placeholder="مثال: 01012345678" style="letter-spacing:2px">
+<div class="fb info" id="phoneErr" hidden style="margin-top:6px">يجب إدخال رقم هاتف مصري صحيح مكون من 11 رقمًا يبدأ بـ 010 أو 011 أو 012 أو 015.</div>
+<div class="fb info" id="sum" style="margin-top:12px"></div><div id="qlist" style="display:grid;gap:10px;margin-top:14px"></div>
+<p class="lead" style="margin-top:12px;font-size:14px" id="priv"></p></section>
+<section id="vQ" class="card" hidden><div class="prog" aria-hidden="true"><i id="pr"></i></div><p class="lead" id="qn" style="margin-top:8px"></p><h2 id="qtxt" style="margin-top:6px;line-height:1.8"></h2><div id="qdiag" style="margin:10px 0" hidden></div><div id="qo"></div>
+<div style="display:flex;gap:8px;margin-top:14px"><button class="btn" id="nx" type="button" disabled>التالي</button></div></section>
+<section id="vR" hidden>
+<div class="card"><h2 id="rt"></h2><div class="tiles" style="margin-top:10px"><div class="tile r"><small>صحيحة</small><b id="rOk"></b></div><div class="tile i"><small>خاطئة</small><b id="rNo"></b></div><div class="tile v"><small>النسبة</small><b class="ltr" id="rPc"></b></div></div>
+<p class="fb info" id="rMsg"></p><div class="fb ok" id="rGame" style="font-size:18px"></div><div class="card" style="margin-top:12px" id="rAnBox" hidden><h3>تحليل أخطائك</h3><div id="rAn"></div></div><div class="fb info noprint" id="rSend" style="margin-top:12px"></div><div class="noprint" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px"><button class="btn" id="retry" type="button">إعادة الاختبار</button><button class="btn alt" id="home" type="button">اختبار آخر</button></div></div>
+<div id="certWrap" hidden><div class="card noprint" style="margin-top:14px"><b>مبروك! هذه شهادتك:</b> يمكنك طباعتها أو حفظها PDF (اختر «حفظ بصيغة PDF» من نافذة الطباعة) ثم مشاركتها مع أسرتك.<div style="margin-top:10px"><button class="btn" id="prn" type="button">طباعة / حفظ PDF</button></div></div>
+<div id="certArea" style="margin-top:14px"><div class="cert"><img src="assets/logo.png" alt="" onerror="this.style.display='none'"><div class="brand">منصة أتعب هتلاقي – أستاذ كيرلس عماد</div><div class="slogan">أتعب تعويض ربنا كبير</div>
+<div class="ttl" id="cT"></div><p>تشهد منصة أتعب هتلاقي بأن الطالب/الطالبة</p><div class="nm" id="cN"></div><p>قد اجتاز/اجتازت الاختبار بنجاح وحصل/حصلت على</p><div class="sc" id="cS"></div><div class="ph" id="cP"></div>
+<div class="ft"><div>أستاذ كيرلس عماد</div><div id="cD"></div></div><div class="mt">«الذين يزرعون بالدموع يحصدون بالابتهاج»</div><small>شهادة إنجاز تعليمية صادرة عن المنصة، وليست شهادة معتمدة رسميًا.</small></div></div></div>
+<div class="card noprint" style="margin-top:14px"><h3>مراجعة الإجابات</h3><div id="rev"></div></div>
+</section>
+</main></div>
+<script src="js/config.js"></script><script src="js/store.js"></script><script src="js/questions.js"></script><script src="js/quiz.js"></script>
+<script src="js/helper.js" data-page="quiz" data-logo="assets/logo.png"></script>
+</body></html>

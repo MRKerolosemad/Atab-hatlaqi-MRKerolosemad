@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>لوحة متابعة المدرس</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Reem+Kufi:wght@600;700&display=swap">
+<link rel="stylesheet" href="css/brand.css"><link rel="stylesheet" href="css/app.css">
+</head><body>
+<script src="js/layout.js" data-root="" data-page="teacher.html"></script>
+<div class="wrap"><main>
+<h1>لوحة متابعة المدرس</h1>
+<section class="card" id="login"><p class="guide" id="lmsg">أدخل كلمة السر التي وضعتها في ملف Google Apps Script لعرض نتائج الطلاب.</p>
+<div class="qin"><input class="field" id="pw" type="password" autocomplete="off" aria-label="كلمة السر"><button class="btn" id="go" type="button">عرض</button></div></section>
+<div id="dash" hidden><div style="display:flex;flex-direction:column;gap:18px">
+<div class="tiles" style="grid-template-columns:repeat(4,minmax(0,1fr))"><div class="tile v"><small>المحاولات</small><b id="k1"></b></div><div class="tile i"><small>الطلاب</small><b id="k2"></b></div><div class="tile r"><small>المتوسط</small><b id="k3"></b></div><div class="tile v"><small>نسبة النجاح</small><b id="k4"></b></div></div>
+<div class="card"><h2>زيارات المنصة</h2><div class="tiles"><div class="tile v"><small>إجمالي الزيارات</small><b id="v1">—</b></div><div class="tile i"><small>آخر 7 أيام</small><b id="v2">—</b></div><div class="tile r"><small>أجهزة مختلفة</small><b id="v3">—</b></div></div><div class="tscroll" style="margin-top:10px"><table><thead><tr><th>اليوم</th><th>الزيارات</th></tr></thead><tbody id="vd"></tbody></table></div><p class="lead" style="font-size:14px">تُحسب زيارة واحدة لكل جهاز في اليوم، بدون أي بيانات شخصية. «أجهزة مختلفة» تقدير تقريبي لعدد الزوار.</p></div>
+<div class="card"><h2>طلبات التسجيل <span id="rc" class="badge"></span></h2><div class="tscroll"><table><thead><tr><th>الوقت</th><th>الاسم</th><th>الصف</th><th>الهاتف</th><th>رسالة</th></tr></thead><tbody id="tg"></tbody></table></div></div>
+<div class="card"><h2>حسب الاختبار</h2><div class="tscroll"><table><thead><tr><th>الاختبار</th><th>المحاولات</th><th>المتوسط</th><th>النجاح</th></tr></thead><tbody id="tq"></tbody></table></div></div>
+<div class="card"><h2>أكثر نقاط الضعف تكرارًا</h2><div id="tw"></div></div>
+<div class="card"><h2>الطلاب (أعلى نسبة لكل طالب)</h2><div class="tscroll"><table><thead><tr><th>الاسم</th><th>المحاولات</th><th>أعلى نسبة</th><th>آخر محاولة</th></tr></thead><tbody id="ts"></tbody></table></div></div>
+<div class="card"><h2>آخر 20 محاولة</h2><div class="tscroll"><table><thead><tr><th>الوقت</th><th>الاسم</th><th>الاختبار</th><th>النسبة</th><th>نقاط تحتاج مراجعة</th></tr></thead><tbody id="tr"></tbody></table></div></div>
+</div></div></main></div>
+<script src="js/config.js"></script><script src="js/teacher.js"></script>
+<script src="js/helper.js" data-page="teacher" data-logo="assets/logo.png"></script>
+</body></html>

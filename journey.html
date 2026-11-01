@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>رحلة التحدي والنجوم – الصف الثالث الإعدادي | منصة أتعب هتلاقي</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Reem+Kufi:wght@600;700&display=swap">
+  <link rel="stylesheet" href="css/brand.css">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/journey.css">
+</head>
+<body>
+  <!-- الشريط العلوي والتذييل المشترك للمنصة -->
+  <script src="js/layout.js" data-root="" data-page="journey.html"></script>
+
+  <canvas id="confettiCanvas"></canvas>
+
+  <div class="journey-wrap">
+    <!-- لوحة تحكم بطل المغامرة -->
+    <header class="hero-hub">
+      <div class="hub-top">
+        <div class="player-info">
+          <div class="avatar-frame" id="hubAvatar" aria-hidden="true">⚡</div>
+          <div class="player-details">
+            <h2>
+              <span id="hubPlayerName">بطل العلوم</span>
+              <button class="edit-name-btn" id="editNameBtn" type="button" title="تعديل الاسم">تغيير الاسم ✏️</button>
+            </h2>
+            <div class="player-rank" id="hubPlayerRank">مستكشف مبتدئ</div>
+          </div>
+        </div>
+
+        <div class="hub-controls">
+          <button class="icon-btn" id="soundToggleBtn" type="button" title="كتم/تشغيل الصوت">🔊</button>
+          <button class="icon-btn" id="viewBadgesBtn" type="button" title="عرض أوسمة الإنجاز">🎖️</button>
+          <button class="icon-btn" id="viewCertBtn" type="button" title="شهادة رحلة الفيزياء">📜</button>
+          <button class="icon-btn" id="resetJourneyBtn" type="button" title="إعادة ضبط المغامرة">🔄</button>
+        </div>
+      </div>
+
+      <div class="hub-stats">
+        <div class="stat-pill">
+          <span class="stat-icon" aria-hidden="true">⚡</span>
+          <div class="stat-val-wrap">
+            <small>مجموع النقاط</small>
+            <b id="hubTotalPoints">0</b>
+          </div>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-icon" aria-hidden="true">⭐</span>
+          <div class="stat-val-wrap">
+            <small>النجوم المجمعة</small>
+            <b id="hubTotalStars">0 / 24</b>
+          </div>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-icon" aria-hidden="true">🚩</span>
+          <div class="stat-val-wrap">
+            <small>المحطات المكتملة</small>
+            <b id="hubCompletedStages">0 / 8</b>
+          </div>
+        </div>
+      </div>
+
+      <div class="progress-bar-wrap">
+        <div class="progress-header">
+          <span>تقدم خريطة الرحلة</span>
+          <span>الوحدة الثانية: الطاقة الكهربية والإشعاع</span>
+        </div>
+        <div class="progress-track" role="progressbar" aria-label="شريط تقدم النجوم">
+          <div class="progress-fill" id="hubProgressFill"></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- خريطة المراحل والمسار المتعرج -->
+    <main class="map-container">
+      <svg class="map-path-svg" id="mapPathSvg" aria-hidden="true"></svg>
+      <div class="map-stages-list" id="mapStagesList">
+        <!-- يتم توليد محطات المراحل تلقائيًا عبر journey.js -->
+      </div>
+    </main>
+  </div>
+
+  <!-- حاوية النوافذ المنبثقة الشاملة (Modal Overlay) -->
+  <div class="game-modal-overlay" id="modalOverlay" hidden>
+    
+    <!-- 1. نافذة التحدي والمهمات والمرحلة -->
+    <div class="game-modal" id="challengeModal">
+      <button class="modal-close-btn close-modal-trigger" type="button" title="إغلاق">✕</button>
+
+      <!-- شاشة الأسئلة والتحدي -->
+      <div id="modalChallengeView">
+        <div class="mission-header">
+          <span class="mission-tag" id="modalStageTag">المرحلة</span>
+          <h2 id="modalStageTitle">عنوان المحطة</h2>
+          <div class="stage-brief" id="modalStageDesc" style="margin-top:8px">ملخص المحطة</div>
+        </div>
+
+        <div class="q-progress-bar" id="modalQProgressBar"></div>
+
+        <div class="q-box">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <small class="lead" id="modalQCounter">المهمة 1 من 3</small>
+            <div class="hint-wrap">
+              <button class="hint-toggle-btn" id="modalHintToggleBtn" type="button">💡 مساعدة ذكية</button>
+            </div>
+          </div>
+          <div class="hint-content" id="modalHintContent"></div>
+
+          <div class="q-text" id="modalQText">نص السؤال</div>
+          <div id="modalQDiag" style="margin:10px 0" hidden></div>
+          <div class="options-grid" id="modalOptionsGrid"></div>
+        </div>
+
+        <div class="explanation-card" id="modalExplanationCard" style="display:none"></div>
+
+        <div style="margin-top:14px;display:flex;justify-content:flex-end">
+          <button class="btn" id="modalNextQBtn" type="button" style="display:none">التالي ←</button>
+        </div>
+      </div>
+
+      <!-- شاشة تتويج واكتمال المرحلة -->
+      <div id="modalCompletionView" style="display:none" class="celebrate-screen">
+        <h2 id="compStageTitle" style="color:var(--j-navy)">أحسنت يا بطل!</h2>
+        <div class="stars-earned-anim" id="compStarsWrap"></div>
+        <p id="compStageMsg" style="font-size:16px;color:var(--j-muted);margin:10px 0"></p>
+        <div class="score-badge-win" id="compEarnedPoints">+ 300 نقطة</div>
+        <div class="motto-box">
+          «الذين يزرعون بالدموع يحصدون بالابتهاج» — «أتعب تعويض ربنا كبير»
+        </div>
+        <div style="display:flex;gap:10px;justify-content:center;margin-top:18px;flex-wrap:wrap">
+          <button class="btn alt" id="compReplayBtn" type="button">إعادة المحطة لتحسين النجوم 🔄</button>
+          <button class="btn" id="compNextStageBtn" type="button">متابعة الرحلة للخريطة 🗺️</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. نافذة أوسمة الإنجاز (Badges Modal) -->
+    <div class="game-modal" id="badgesModal" hidden>
+      <button class="modal-close-btn close-modal-trigger" type="button" title="إغلاق">✕</button>
+      <h2>🎖️ أوسمة الإنجاز في رحلة الكهرباء</h2>
+      <p class="lead">اجمع النجوم واجتز محطات الخريطة لفتح هذه الأوسمة التكريمية:</p>
+      <div class="badges-grid" id="badgesGrid"></div>
+    </div>
+
+    <!-- 3. نافذة دبلومة وسام بطل رحلة الفيزياء والكهرباء (Championship Diploma Modal) -->
+    <div class="game-modal" id="certModal" hidden style="max-width:880px;padding:16px">
+      <button class="modal-close-btn close-modal-trigger" type="button" title="إغلاق">✕</button>
+      
+      <div class="royal-diploma" id="journeyCertArea">
+        <div class="diploma-border-outer">
+          <div class="diploma-border-inner">
+            <!-- الزخارف الركنية الأربعة -->
+            <div class="diploma-corner tl"></div>
+            <div class="diploma-corner tr"></div>
+            <div class="diploma-corner bl"></div>
+            <div class="diploma-corner br"></div>
+
+            <div class="diploma-header">
+              <div class="diploma-badge-top">
+                <span class="diploma-stars-row">★★★★★</span>
+                <span class="diploma-badge-text">بطولة رحلة التحدي والنجوم • الصف الثالث الإعدادي</span>
+                <span class="diploma-stars-row">★★★★★</span>
+              </div>
+              <div class="diploma-brand">
+                <img src="assets/logo.png" alt="شعار منصة أتعب هتلاقي" onerror="this.style.display='none'">
+                <div class="diploma-brand-info">
+                  <b>منصة «أتعب هتلاقي» التعليمية – أستاذ كيرلس عماد</b>
+                  <span>معمل الفيزياء والدوائر الكهربية التفاعلي</span>
+                </div>
+              </div>
+              <h1 class="diploma-title">وسام بطل رحلة الفيزياء والكهرباء</h1>
+              <p class="diploma-grant-line">يُمنح هذا الوسام التقديري والتكريمي ببالغ الفخر والاعتزاز إلى البطل / البطلة:</p>
+            </div>
+
+            <div class="diploma-body">
+              <div class="diploma-name-frame">
+                <span class="diploma-name" id="certNameOut">بطل العلوم</span>
+              </div>
+              
+              <p class="diploma-desc">
+                تقديرًا لاجتيازه بجدارة وتفوق محطات التحدي في مادة العلوم، وإتقانه قوانين ومفاهيم شدة التيار وفرق الجهد وقانون أوم وتوصيل المقاومات والدوائر المختلطة والطاقة والقدرة الكهربية وتكلفة الاستهلاك.
+              </p>
+
+              <div class="diploma-metrics">
+                <div class="metric-shield">
+                  <span class="m-icon">⭐</span>
+                  <div class="m-val" id="certStarsOut">0 / 24</div>
+                  <div class="m-title">رصيد النجوم المكتسبة</div>
+                </div>
+                <div class="metric-shield prime">
+                  <span class="m-icon">👑</span>
+                  <div class="m-val" id="certRankOut">مستكشف مبتدئ</div>
+                  <div class="m-title">اللقب والرتبة الشرفية</div>
+                </div>
+                <div class="metric-shield">
+                  <span class="m-icon">⚡</span>
+                  <div class="m-val" id="certPtsOut">0</div>
+                  <div class="m-title">مجموع نقاط الطاقة (XP)</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="diploma-footer">
+              <div class="diploma-seal-col">
+                <div class="embossed-seal">
+                  <div class="seal-inner-star">★</div>
+                  <div class="seal-inner-title">معتمد للتفوق</div>
+                  <div class="seal-inner-sub">أتعب هتلاقي</div>
+                </div>
+              </div>
+
+              <div class="diploma-sig-col">
+                <div class="diploma-signatures">
+                  <div>معلم المادة: <b>أستاذ كيرلس عماد</b></div>
+                  <div>تاريخ التتويج: <b id="certDateOut"></b></div>
+                </div>
+                <div class="diploma-quote">
+                  «الذين يزرعون بالدموع يحصدون بالابتهاج» — «أتعب تعويض ربنا كبير»
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="noprint" style="display:flex;gap:12px;justify-content:center;margin-top:16px;flex-wrap:wrap">
+        <button class="btn" id="printJourneyCertBtn" type="button" style="font-size:16px;padding:12px 28px;background:var(--j-gold);color:#14284B;box-shadow:0 4px 14px rgba(212,175,55,0.4)">طباعة الوسام / حفظ PDF 🖨️</button>
+        <button class="btn alt close-modal-trigger" type="button" style="padding:12px 20px">إغلاق</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- السكربتات التفاعلية -->
+  <script src="js/audio.js"></script>
+  <script src="js/journey-data.js"></script>
+  <script src="js/journey.js"></script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>الملخص – أهم القوانين – أتعب هتلاقي</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Reem+Kufi:wght@600;700&display=swap">
+<link rel="stylesheet" href="css/brand.css"><link rel="stylesheet" href="css/app.css">
+<style>
+.mm{display:flex;flex-direction:column;gap:10px}.mm-c{align-self:center;background:var(--c-v);color:var(--on-c);font-family:var(--f-display);font-size:21px;font-weight:700;border-radius:999px;padding:8px 26px;text-align:center}
+.mm-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:10px}.mm-b{border:2px solid var(--b,var(--c-r));border-radius:14px;padding:10px 12px;background:var(--surface)}
+.mm-b h4{margin:0 0 6px;color:var(--b,var(--c-r));font-size:17px}.mm-b ul{margin:0;padding-inline-start:18px}.mm-b li{margin-bottom:4px;font-size:15.5px}.mm-b .ltr{font-weight:700}
+.k1{--b:#C23333}.k2{--b:#B85A05}.k3{--b:#0A8585}.k4{--b:#1F3E78}.k5{--b:#7B3FA0}.k6{--b:#1B8049}
+.keys td:first-child{font-weight:800}.keys td b{font-size:18px;color:var(--c-i)}
+.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:10px}.how>div{background:var(--surface2);border-radius:12px;padding:12px;font-weight:600}
+</style></head><body>
+<script src="js/layout.js" data-root="" data-page="summary.html"></script>
+<div class="wrap"><main>
+<div><h1>الملخص: أهم القوانين</h1><p class="lead">كل القوانين بطريقة المثلثات، ومفاتيح للحفظ، وخرائط ذهنية بسيطة.</p></div>
+<p class="guide">ابدأ بالمثلثات: اضغط على الخانة التي لا تعرفها وهيظهر لك قانونها فورًا.</p>
+
+<section class="card"><h2>كيف تستخدم المثلث؟</h2>
+<div class="how"><div>1) <b>القمة</b> = الخانتين التحت مضروبتين: <span class="ltr">قمة = يسار × يمين</span></div><div>2) غطِّ الخانة المجهولة بإصبعك: لو الاتنين الباقيين <b>جنب بعض</b> ← اضرب.</div><div>3) لو الباقيين <b>واحد فوق التاني</b> ← اقسم (الفوق ÷ التحت).</div><div>4) <b>مفتاح الحفظ:</b> لكل مثلث كلمة، و<b>الحرف الكبير</b> فيها هو القمة. مثلًا <b class="ltr">VRi</b> اقرأها «فري»: V فوق، وR وI تحت.</div></div></section>
+
+<section><h2 style="margin-bottom:10px">المثلثات</h2><div class="tris" id="tris"></div></section>
+
+<section class="card"><h2>جدول مفاتيح الحفظ</h2><div class="tscroll"><table class="keys"><thead><tr><th>القانون</th><th>الكلمة</th><th>القمة</th></tr></thead><tbody id="keys"></tbody></table></div>
+<p class="lead" style="margin-top:8px;font-size:14px">كلمتا «مرن» متشابهتان في النطق: انتبه للحرف الكبير: <span class="ltr">Mrn</span> (المكافئة فوق: توالي) و<span class="ltr">mRn</span> (المقاومة الواحدة فوق: توازي).</p></section>
+
+<section class="card"><h2>خريطة ذهنية 1: توصيل المقاومات</h2>
+<div class="mm"><div class="mm-c">توصيل المقاومات</div><div class="mm-g">
+<div class="mm-b k1"><h4>طريقة التوصيل</h4><ul><li><b>توالي:</b> مسار واحد متصل.</li><li><b>توازي:</b> مسارات متفرعة.</li></ul></div>
+<div class="mm-b k2"><h4>المقاومة المكافئة</h4><ul><li><b>توالي:</b> <span class="ltr">R′ = R × n</span> (أكبر ما يمكن).</li><li><b>توازي:</b> <span class="ltr">R′ = R ÷ n</span> (أقل ما يمكن).</li></ul></div>
+<div class="mm-b k3"><h4>الهدف</h4><ul><li><b>توالي:</b> مقاومة كبيرة (الطول يزيد).</li><li><b>توازي:</b> مقاومة صغيرة (مساحة المقطع تزيد).</li></ul></div>
+<div class="mm-b k4"><h4>شدة التيار</h4><ul><li><b>توالي:</b> متساوية <span class="ltr">I = I₁ = I₂</span></li><li><b>توازي:</b> تتوزع <span class="ltr">I = I₁ + I₂</span>، وللمتماثلة <span class="ltr">I₁ = I ÷ n</span></li></ul></div>
+<div class="mm-b k5"><h4>فرق الجهد</h4><ul><li><b>توالي:</b> يتوزع <span class="ltr">V = V₁ + V₂</span>، وللمتماثلة <span class="ltr">V₁ = V ÷ n</span></li><li><b>توازي:</b> متساوٍ <span class="ltr">V = V₁ = V₂</span></li></ul></div>
+<div class="mm-b k6"><h4>لو تلف مكوّن</h4><ul><li><b>توالي:</b> ينقطع التيار عن الدائرة كلها.</li><li><b>توازي:</b> يتوقف المكوّن التالف فقط.</li></ul></div></div>
+<p class="guide">خطوات أي مسألة: (1) احسب <span class="ltr">R′</span> (2) احسب <span class="ltr">I = V ÷ R′</span> (3) وزّع التيار والجهد حسب نوع التوصيل.</p></div></section>
+
+<section class="card"><h2>خريطة ذهنية 2: المقاومة وقانون أوم</h2>
+<div class="mm"><div class="mm-c">المقاومة الكهربية</div><div class="mm-g">
+<div class="mm-b k1"><h4>تعريفها ووحدتها</h4><ul><li>الممانعة التي يلقاها التيار أثناء حركته في الموصلات.</li><li>تُقاس بالأوم <span class="ltr">Ω</span>.</li></ul></div>
+<div class="mm-b k2"><h4>العوامل المؤثرة</h4><ul><li>طول الموصل: علاقة <b>طردية</b>.</li><li>مساحة المقطع: علاقة <b>عكسية</b>.</li><li>نوع المادة (المقاومة النوعية).</li></ul></div>
+<div class="mm-b k3"><h4>أنواع المقاومات</h4><ul><li><b>ثابتة.</b></li><li><b>متغيرة:</b> مثل الريوستات، يتحكم في طول الموصل فتتغير المقاومة وشدة التيار.</li></ul></div>
+<div class="mm-b k4"><h4>قانون أوم</h4><ul><li>تتناسب <span class="ltr">I</span> طرديًا مع <span class="ltr">V</span> عند ثبوت درجة الحرارة.</li><li><span class="ltr">I = V ÷ R</span> ، <span class="ltr">V = I × R</span> ، <span class="ltr">R = V ÷ I</span></li></ul></div>
+<div class="mm-b k5"><h4>الرسم البياني</h4><ul><li><span class="ltr">I–V</span>: خط مستقيم يمر بنقطة الأصل (طردية).</li><li><span class="ltr">I–R</span>: منحنى يهبط (عكسية).</li></ul></div>
+<div class="mm-b k6"><h4>مثال: المصباح</h4><ul><li>الفتيلة (تنجستن) مقاومتها أكبر فتتوهج.</li><li>أسلاك النحاس مقاومتها أقل.</li><li>التوهج: جزء من الطاقة الكهربية يتحول إلى ضوء وحرارة.</li></ul></div></div></div></section>
+
+<section class="card"><h2>خريطة ذهنية 3: القدرة الكهربية</h2>
+<div class="mm"><div class="mm-c">القدرة الكهربية</div><div class="mm-g">
+<div class="mm-b k1"><h4>تعريفها</h4><ul><li>الطاقة الكهربية المستهلكة في الثانية الواحدة.</li><li>الوات = جول ÷ ثانية <span class="ltr">W = J/s</span></li></ul></div>
+<div class="mm-b k2"><h4>القوانين</h4><ul><li><span class="ltr">P = E ÷ t</span> ، <span class="ltr">E = P × t</span> ، <span class="ltr">t = E ÷ P</span></li><li>حوّل الزمن لثوانٍ أولًا.</li></ul></div>
+<div class="mm-b k3"><h4>العلاقات</h4><ul><li><span class="ltr">P</span> و<span class="ltr">E</span>: طردية (عند ثبوت t).</li><li><span class="ltr">P</span> و<span class="ltr">t</span>: عكسية (عند ثبوت E).</li></ul></div>
+<div class="mm-b k4"><h4>الكيلووات.ساعة</h4><ul><li><span class="ltr">1 kW.h = 3.6 × 10⁶ J</span></li><li>kW.h ← J: اضرب. وJ ← kW.h: اقسم.</li></ul></div>
+<div class="mm-b k5"><h4>حساب التكلفة (3 خطوات)</h4><ul><li><span class="ltr">kW = W ÷ 1000</span></li><li><span class="ltr">E = P(kW) × ساعات</span></li><li>التكلفة = <span class="ltr">E ×</span> سعر الكيلووات.ساعة</li></ul></div>
+<div class="mm-b k6"><h4>التوفير</h4><ul><li>قدرة أقل ← استهلاك أقل ← تكلفة أقل.</li><li>بطاقة الكفاءة: الأخضر A أفضل.</li></ul></div></div></div></section>
+
+<section class="card"><h2>أهم القوانين في سطور</h2><div class="tscroll"><table><thead><tr><th>القانون</th><th>الصيغة</th><th>الوحدات</th></tr></thead><tbody>
+<tr><td>أوم</td><td class="ltr">I = V ÷ R</td><td>A ، V ، Ω</td></tr>
+<tr><td>التيار والشحنة</td><td class="ltr">I = Q ÷ t</td><td>A ، C ، s</td></tr>
+<tr><td>فرق الجهد</td><td class="ltr">V = W ÷ Q</td><td>V ، J ، C</td></tr>
+<tr><td>مقاومة التوالي</td><td class="ltr">R′ = R × n</td><td>Ω</td></tr>
+<tr><td>مقاومة التوازي</td><td class="ltr">R′ = R ÷ n</td><td>Ω</td></tr>
+<tr><td>القدرة</td><td class="ltr">P = E ÷ t</td><td>W ، J ، s</td></tr>
+<tr><td>التكلفة</td><td class="ltr">E(kW.h) × السعر</td><td>kW.h</td></tr></tbody></table></div></section>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn" href="quiz.html" style="text-decoration:none">📝 اختبر نفسك</a><a class="btn alt" href="ask.html" style="text-decoration:none">💬 اسألني سؤال</a></div>
+</main></div>
+<script src="js/config.js"></script><script src="js/tri.js"></script>
+<script>
+document.getElementById('tris').innerHTML=TRIS.map(function(t){return '<div id="t_'+t.id+'"></div>';}).join('');
+TRIS.forEach(function(t){Tri.mount('t_'+t.id,t.id);});
+document.getElementById('keys').innerHTML=TRIS.map(function(t){return '<tr><td>'+t.name+'</td><td><b class="ltr">'+t.key+'</b> «'+t.ar+'»</td><td class="ltr">'+t.top[0]+'</td></tr>';}).join('');
+</script>
+<script src="js/video.js" data-video="summary"></script><script src="js/helper.js" data-page="summary" data-logo="assets/logo.png"></script>
+</body></html>
