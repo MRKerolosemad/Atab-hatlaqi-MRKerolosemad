@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>الدرس الثالث: القوى الكهربية والمغناطيسية – شرح مبسط وتفاعلي</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Reem+Kufi:wght@600;700&display=swap">
+<link rel="stylesheet" href="../css/brand.css"><link rel="stylesheet" href="../css/app.css">
+<style>
+.sec h2{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.sec h2 .n{background:var(--c-i);color:var(--on-c);border-radius:50%;width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;font-size:18px;flex:none}
+.def{background:var(--surface2);border-inline-start:5px solid var(--c-r);border-radius:10px;padding:12px 16px;font-weight:700;margin:10px 0;line-height:1.8}
+.law{display:block;direction:ltr;text-align:center;font-size:22px;font-weight:800;background:var(--c-v);color:var(--on-c);border-radius:12px;padding:10px;margin:10px 0}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:12px;margin:10px 0}
+.two>div{background:var(--surface2);border-radius:12px;padding:14px}
+.three{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:10px;margin:10px 0}
+.three>div{background:var(--surface2);border-radius:12px;padding:12px;text-align:center}
+details{background:var(--surface2);border-radius:10px;padding:8px 14px;margin:8px 0}
+summary{font-weight:800;cursor:pointer;min-height:36px;display:flex;align-items:center}
+.cta{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.cta a{text-decoration:none;display:inline-block}
+.diag-card{background:var(--surface);border:2px solid var(--line);border-radius:12px;padding:12px;text-align:center;margin:12px 0}
+.badge-tag{background:var(--c-i);color:#fff;padding:2px 8px;border-radius:6px;font-size:13px;font-weight:700}
+.concept-box{background:linear-gradient(135deg,rgba(31,62,120,0.08),rgba(10,133,133,0.08));border:1px solid var(--line);border-radius:12px;padding:14px;margin:10px 0}
+.interactive-test{background:var(--surface);border:2px dashed var(--c-i);border-radius:14px;padding:16px;margin:14px 0}
+.interactive-test button.opt-btn{display:block;width:100%;text-align:start;font:inherit;font-weight:600;padding:10px 14px;margin:6px 0;border-radius:10px;border:2px solid var(--line);background:var(--surface2);cursor:pointer;transition:all .2s}
+.interactive-test button.opt-btn:hover{border-color:var(--c-v);background:var(--surface)}
+.interactive-test .feedback{margin-top:10px;padding:10px;border-radius:8px;display:none;font-weight:700}
+</style>
+</head><body>
+<script src="../js/layout.js" data-root="../" data-page="labs/magnet.html"></script>
+<div class="wrap"><main>
+<div>
+  <span class="badge-tag">المنهج المطور – علوم الصف الثالث الإعدادي</span>
+  <h1>الدرس الثالث: القوى الكهربية والمغناطيسية</h1>
+  <p class="lead">الوحدة الثانية: الكهربية والمغناطيسية – التأثير المغناطيسي للتيار الكهربي والمغناطيس الكهربي وتطبيقاته</p>
+</div>
+
+<p class="guide">مرحبًا بك يا بطل! ستتعلم هنا كيف ترتبط الكهرباء بالمغناطيسية في علاقة سحرية غيرت تاريخ البشرية واخترعت المحركات والمولدات والأوناش العملاقة!</p>
+
+<div class="cta">
+  <a class="btn" href="magnet-lab.html">🔬 ادخل المعمل التفاعلي للمغناطيسية</a>
+  <a class="btn alt" href="../quiz.html">📝 اختبر نفسك في الدرس الثالث</a>
+  <a class="btn alt" href="../journey.html">🚀 مرحلة المغناطيس في رحلة النجوم</a>
+  <a class="btn alt" href="../ask.html">💬 اسألني سؤال في المنهج</a>
+</div>
+
+<!-- بطاقة التهيئة والتساؤل العلمي -->
+<section class="card sec" style="border-inline-start:5px solid var(--c-i)">
+  <h2><span class="n">؟</span>تهيئة الدرس والتساؤلات العلمية</h2>
+  <div class="two">
+    <div>
+      <h3 style="color:var(--c-i);margin-bottom:6px">💡 مروحة كهربية تدور أمامك كل يوم:</h3>
+      <ul style="margin:0;padding-inline-start:20px;line-height:1.9">
+        <li><b>كيف تعمل المروحة؟</b> عند مرور التيار الكهربي في محركها تدور الريش فورًا.</li>
+        <li><b>كيف يحول محرك المروحة الطاقة الكهربية إلى طاقة ميكانيكية؟</b> بفضل القوى المغناطيسية الناتجة عن مرور التيار الكهربي في ملف المحرك.</li>
+        <li><b>كيف يمكن التحكم في سرعتها؟</b> بالتحكم في شدة التيار الكهربي المار في ملفات المحرك.</li>
+      </ul>
+    </div>
+    <div style="display:flex;flex-direction:column;justify-content:center;align-items:center;background:var(--surface);border-radius:12px;padding:10px;border:1px solid var(--line)">
+      <svg viewBox="0 0 160 140" style="width:140px;height:120px" role="img" aria-label="رسم مروحة ومحرك">
+        <circle cx="80" cy="70" r="18" fill="var(--c-v)"/>
+        <path d="M80 52 C80 20 60 10 50 25 C45 35 65 52 80 52 Z" fill="var(--c-r)" opacity="0.85"/>
+        <path d="M80 88 C80 120 100 130 110 115 C115 105 95 88 80 88 Z" fill="var(--c-r)" opacity="0.85"/>
+        <path d="M98 70 C130 70 140 50 125 40 C115 35 98 55 98 70 Z" fill="var(--c-i)" opacity="0.85"/>
+        <path d="M62 70 C30 70 20 90 35 100 C45 105 62 85 62 70 Z" fill="var(--c-i)" opacity="0.85"/>
+        <circle cx="80" cy="70" r="6" fill="#fff"/>
+      </svg>
+      <span class="lead" style="font-size:13px;font-weight:700">المحرك الكهربي: يحول الكهرباء إلى حركة ومغناطيسية</span>
+    </div>
+  </div>
+</section>
+
+<!-- 1. تراكم معرفي -->
+<section class="card sec">
+  <h2><span class="n">1</span>تراكم معرفي: مفاهيم مغناطيسية أساسية</h2>
+  <p>قبل دراسة العلاقة بين الكهرباء والمغناطيسية، تذكّر هذه المفاهيم الهامة:</p>
+  
+  <div class="def">
+    <b>1. المجال المغناطيسي (Magnetic Field):</b><br>
+    هو المنطقة المحيطة بالمغناطيس والتي تظهر فيها آثار قوته المغناطيسية.
+  </div>
+
+  <div class="def" style="border-inline-start-color:var(--c-v)">
+    <b>2. خطوط المجال المغناطيسي (Magnetic Field Lines):</b><br>
+    هي خطوط <b>وهمية</b> تمثل اتجاه وشدة المجال المغناطيسي (تخرج من القطب الشمالي N وتتجه نحو القطب الجنوبي S خارج المغناطيس).
+  </div>
+
+  <div class="def" style="border-inline-start-color:var(--c-i)">
+    <b>3. إبرة البوصلة (Compass Needle):</b><br>
+    هي مغناطيس صغير حر الحركة، يتخذ طبيعيًا اتجاه الشمال والجنوب الجغرافيين بتأثير المجال المغناطيسي لكوكب الأرض.
+  </div>
+
+  <div class="diag-card">
+    <svg viewBox="0 0 500 160" style="max-width:480px;margin:0 auto;display:block" role="img" aria-label="رسم خطوط المجال المغناطيسي حول مغناطيس">
+      <defs>
+        <marker id="arr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M 0 1 L 8 5 L 0 9 z" fill="var(--c-r)"/>
+        </marker>
+      </defs>
+      <!-- خطوط المجال -->
+      <path d="M 180 70 C 180 15, 320 15, 320 70" fill="none" stroke="var(--c-r)" stroke-width="2.5" stroke-dasharray="6 3" marker-mid="url(#arr)"/>
+      <path d="M 160 80 C 130 -10, 370 -10, 340 80" fill="none" stroke="var(--c-r)" stroke-width="2" stroke-dasharray="6 3"/>
+      <path d="M 180 90 C 180 145, 320 145, 320 90" fill="none" stroke="var(--c-r)" stroke-width="2.5" stroke-dasharray="6 3"/>
+      <path d="M 160 80 C 130 170, 370 170, 340 80" fill="none" stroke="var(--c-r)" stroke-width="2" stroke-dasharray="6 3"/>
+      <!-- قضيب المغناطيس -->
+      <rect x="190" y="65" width="60" height="30" rx="4" fill="#C23333"/>
+      <rect x="250" y="65" width="60" height="30" rx="4" fill="#1F3E78"/>
+      <text x="220" y="86" fill="#fff" font-weight="800" font-size="16" text-anchor="middle">N شمالي</text>
+      <text x="280" y="86" fill="#fff" font-weight="800" font-size="16" text-anchor="middle">S جنوبي</text>
+      <!-- بوصلة صغيرة -->
+      <circle cx="80" cy="80" r="26" fill="var(--surface2)" stroke="var(--line)" stroke-width="2"/>
+      <polygon points="80,58 87,80 73,80" fill="#C23333"/>
+      <polygon points="80,102 87,80 73,80" fill="#1F3E78"/>
+      <circle cx="80" cy="80" r="3" fill="#fff"/>
+      <text x="80" y="125" fill="var(--ink)" font-size="12" font-weight="700" text-anchor="middle">إبرة البوصلة</text>
+    </svg>
+    <span class="lead" style="font-size:13px;font-weight:700">المجال المغناطيسي وخطوطه الوهمية وبوصلة حرة الحركة</span>
+  </div>
+</section>
+
+<!-- 2. التأثير المغناطيسي للتيار الكهربي وتجربة أورستد -->
+<section class="card sec">
+  <h2><span class="n">2</span>التأثير المغناطيسي للتيار الكهربي (تجربة هانز أورستد)</h2>
+  <div class="concept-box">
+    <b>👨‍🔬 العالم الدنماركي هانز أورستد (عام 1820م):</b>
+    <p>اكتشف بطريق المصادفة أن مرور تيار كهربي في سلك موصل موضوع بالقرب من بوصلة يؤدي إلى <b>انحراف إبرة البوصلة</b> عن موضعها الأصلي، مما أثبت لأول مرة في التاريخ وجود علاقة وثيقة بين الكهرباء والمغناطيسية!</p>
+  </div>
+
+  <div class="def">
+    <b>التأثير المغناطيسي للتيار الكهربي:</b><br>
+    هو ظاهرة تولد مجال مغناطيسي حول أي موصل (سلك) يمر به تيار كهربي.
+  </div>
+
+  <h3 style="margin-top:14px">نشاط: التأثير المغناطيسي للتيار الكهربي (تجربة أورستد)</h3>
+  <div class="two">
+    <div>
+      <b>الخطوات:</b>
+      <ol style="margin:4px 0;padding-inline-start:20px;line-height:1.8">
+        <li>نضع بوصلة أفقية على منضدة حتى تستقر إبرتها في اتجاه الشمال-الجنوب.</li>
+        <li>نصل سلكًا نحاسيًا معزولًا مع بطارية ومفتاح ومصباح، بحيث يكون السلك موازيًا لإبرة البوصلة فوقها.</li>
+        <li><b>نغلق الدائرة الكهربية:</b> نلاحظ انحراف إبرة البوصلة عن اتجاهها الأصلي فورًا.</li>
+        <li><b>نفتح الدائرة الكهربية:</b> تعود إبرة البوصلة لوضعها الأصلي.</li>
+      </ol>
+      <div class="def" style="margin-top:8px">
+        <b>الاستنتاج:</b><br>
+        للتيار الكهربي تأثير مغناطيسي، حيث يتولد حول السلك مجال مغناطيسي يؤثر بقوة على إبرة البوصلة المغناطيسية فيديرها.
+      </div>
+    </div>
+    <div class="diag-card" style="margin:0">
+      <svg viewBox="0 0 320 230" style="width:100%;max-width:300px;margin:0 auto" role="img" aria-label="رسم تجربة أورستد">
+        <!-- الدائرة الكهربية -->
+        <rect x="20" y="20" width="280" height="190" rx="14" fill="none" stroke="var(--line)" stroke-width="3"/>
+        <!-- بطارية ومصباح -->
+        <rect x="120" y="10" width="80" height="20" rx="4" fill="var(--c-v)"/>
+        <text x="160" y="25" fill="#fff" font-size="12" font-weight="700" text-anchor="middle">بطارية 1.5V</text>
+        <!-- سلك أفقي يمر فوق البوصلة -->
+        <line x1="40" y1="130" x2="280" y2="130" stroke="#C23333" stroke-width="5"/>
+        <text x="160" y="118" fill="var(--bad)" font-size="12" font-weight="800" text-anchor="middle">سلك يمر به تيار كهربي</text>
+        <!-- بوصلة أسفل السلك -->
+        <circle cx="160" cy="165" r="32" fill="var(--surface2)" stroke="var(--ink)" stroke-width="2"/>
+        <!-- إبرة منحرفة -->
+        <g transform="rotate(35 160 165)">
+          <polygon points="160,138 168,165 152,165" fill="#C23333"/>
+          <polygon points="160,192 168,165 152,165" fill="#1F3E78"/>
+          <circle cx="160" cy="165" r="4" fill="#fff"/>
+        </g>
+        <text x="160" y="215" fill="var(--ink)" font-size="12" font-weight="800" text-anchor="middle">انحراف إبرة البوصلة ✓</text>
+      </svg>
+      <span class="lead" style="font-size:13px;font-weight:700">عند غلق الدائرة: ينحرف المغناطيس الصغير لإبرة البوصلة</span>
+    </div>
+  </div>
+
+  <h3 style="margin-top:16px">اختراعات كبرى تعتمد على العلاقة بين الكهرباء والمغناطيسية:</h3>
+  <div class="three">
+    <div>
+      <b style="font-size:24px">🧲</b><br>
+      <b style="color:var(--c-v)">1. المغناطيس الكهربي</b><br>
+      <span class="lead" style="font-size:14px">Electromagnet: ونش الخردة، الجرس، الرافعة المغناطيسية</span>
+    </div>
+    <div>
+      <b style="font-size:24px">🔄</b><br>
+      <b style="color:var(--c-i)">2. المحرك الكهربي (الموتور)</b><br>
+      <span class="lead" style="font-size:14px">Electric Motor: يحول الطاقة الكهربية لحركية ميكانيكية</span>
+    </div>
+    <div>
+      <b style="font-size:24px">⚡</b><br>
+      <b style="color:var(--c-r)">3. المولد الكهربي (الدينامو)</b><br>
+      <span class="lead" style="font-size:14px">Electric Generator: يحول الطاقة الحركية إلى طاقة كهربية</span>
+    </div>
+  </div>
+</section>
+
+<!-- 3. المغناطيس الكهربي -->
+<section class="card sec">
+  <h2><span class="n">3</span>المغناطيس الكهربي (تركيبه وفكرة عمله)</h2>
+  
+  <p>ينجذب المسمار المصنوع من الحديد المطاوع إلى المغناطيس، ولكن: <b>هل يمكن تحويل المسمار نفسه إلى مغناطيس؟</b></p>
+  
+  <div class="def">
+    <b>فكرة عمل المغناطيس الكهربي:</b><br>
+    تحويل <b>الطاقة الكهربية</b> إلى <b>طاقة مغناطيسية</b>.
+  </div>
+
+  <h3>نشاط: فكرة عمل المغناطيس الكهربي</h3>
+  <ul style="line-height:1.8;padding-inline-start:20px">
+    <li>نلف سلكًا معزولًا من النحاس بانتظام على هيئة ملف حول مسمار من <b>الحديد المطاوع</b>.</li>
+    <li>نضع دبابيس مكتب أو برادة حديد بالقرب من طرف المسمار.</li>
+    <li><b>عند غلق الدائرة (مرور التيار):</b> تنجذب برادة الحديد والدبابيس إلى المسمار بشدة.</li>
+    <li><b>عند فتح الدائرة (فصل التيار):</b> تنفصل برادة الحديد والدبابيس وتسقط فورًا عن المسمار.</li>
+  </ul>
+
+  <div class="diag-card">
+    <svg viewBox="0 0 520 220" style="width:100%;max-width:500px;margin:0 auto;display:block" role="img" aria-label="تركيب المغناطيس الكهربي">
+      <!-- بطارية -->
+      <rect x="30" y="40" width="80" height="40" rx="6" fill="var(--c-v)"/>
+      <text x="70" y="65" fill="#fff" font-size="14" font-weight="700" text-anchor="middle">بطارية</text>
+      <!-- أسلاك التوصيل -->
+      <path d="M 70 40 L 70 20 L 220 20 L 220 70" fill="none" stroke="var(--ink)" stroke-width="4"/>
+      <path d="M 70 80 L 70 180 L 220 180 L 220 130" fill="none" stroke="var(--ink)" stroke-width="4"/>
+      <!-- مسمار الحديد المطاوع (قلب المغناطيس) -->
+      <rect x="200" y="85" width="220" height="30" rx="4" fill="#78909C" stroke="#37474F" stroke-width="2"/>
+      <polygon points="420,80 445,100 420,120" fill="#546E7A"/>
+      <rect x="190" y="78" width="16" height="44" rx="2" fill="#37474F"/>
+      <!-- لفات الملف النحاسي -->
+      <path d="M 230 75 Q 240 100 230 125 M 250 75 Q 260 100 250 125 M 270 75 Q 280 100 270 125 M 290 75 Q 300 100 290 125 M 310 75 Q 320 100 310 125 M 330 75 Q 340 100 330 125 M 350 75 Q 360 100 350 125 M 370 75 Q 380 100 370 125" fill="none" stroke="#D87A2B" stroke-width="6" stroke-linecap="round"/>
+      <!-- دبابيس منجذبة -->
+      <g transform="translate(435, 95) rotate(20)">
+        <line x1="0" y1="0" x2="25" y2="0" stroke="var(--c-r)" stroke-width="3"/>
+        <circle cx="25" cy="0" r="3" fill="var(--c-r)"/>
+      </g>
+      <g transform="translate(430, 110) rotate(-15)">
+        <line x1="0" y1="0" x2="25" y2="0" stroke="var(--c-r)" stroke-width="3"/>
+        <circle cx="25" cy="0" r="3" fill="var(--c-r)"/>
+      </g>
+      <g transform="translate(425, 75) rotate(45)">
+        <line x1="0" y1="0" x2="20" y2="0" stroke="var(--c-r)" stroke-width="3"/>
+        <circle cx="20" cy="0" r="3" fill="var(--c-r)"/>
+      </g>
+      <text x="300" y="60" fill="#D87A2B" font-size="13" font-weight="800" text-anchor="middle">ملف من سلك نحاس معزول</text>
+      <text x="300" y="150" fill="#37474F" font-size="13" font-weight="800" text-anchor="middle">قلب من الحديد المطاوع</text>
+      <text x="460" y="145" fill="var(--c-r)" font-size="12" font-weight="800" text-anchor="middle">دبابيس منجذبة</text>
+    </svg>
+    <span class="lead" style="font-size:13px;font-weight:700">تركيب المغناطيس الكهربي: ملف نحاسي + قلب حديد مطاوع + بطارية</span>
+  </div>
+
+  <h3 style="margin-top:14px">تركيب المغناطيس الكهربي يتكون من:</h3>
+  <div class="three">
+    <div><b>1. ملف من سلك نحاس معزول</b><br><span class="lead">يمر به التيار لإنتاج المجال</span></div>
+    <div><b>2. قلب من الحديد المطاوع</b><br><span class="lead">يوضع داخل الملف لتركيز المغنطة</span></div>
+    <div><b>3. بطارية كهربية</b><br><span class="lead">مصدر تيار كهربي مستمر</span></div>
+  </div>
+
+  <h3 style="margin-top:16px">تعليلات هامة جدًا للامتحان:</h3>
+  <details open>
+    <summary>❓ علل: يوصف المغناطيس الكهربي بأنه «مغناطيس مؤقت»؟</summary>
+    <p><b>الإجابة:</b> لأنه <b>يفقد مغناطيسيته تمامًا</b> عند فصل التيار الكهربي عن ملفه.</p>
+  </details>
+
+  <details open>
+    <summary>❓ علل: يصنع قلب المغناطيس الكهربي من «الحديد المطاوع» تحديدًا؟</summary>
+    <p><b>الإجابة:</b> <b>لسهولة اكتسابه وفقده للمغنطة</b>؛ فيتمغنط بسرعة وبقوة عند مرور التيار، ويفقد مغناطيسيته بسرعة عند قطع التيار.</p>
+  </details>
+
+  <div class="concept-box" style="margin-top:14px">
+    <h3 style="margin-top:0">🏗️ تطبيق عملي: ونش رفع ونقل الخردة الحديدية الثقيلة</h3>
+    <p><b>كيف يُستخدم المغناطيس الكهربي في نقل قطع الخردة في الموانئ والمصانع؟</b></p>
+    <ol style="margin:6px 0;padding-inline-start:20px;line-height:1.8">
+      <li><b>عند توصيل ملف المغناطيس بالتيار الكهربي:</b> يتمغنط المغناطيس الضخم للونش فتنجذب إليه قطع الخردة الحديدية الثقيلة والسيارات القديمة، ويتم رفعها ونقلها بالرافعة لمكان آخر.</li>
+      <li><b>عند فصل التيار الكهربي عنه:</b> يفقد المغناطيس مغناطيسيته فورًا، فتسقط قطع الخردة بدقة في المكان المطلوب (كالقطار أو شاحنة النقل أو مصهر المعادن).</li>
+    </ol>
+  </div>
+</section>
+
+<!-- 4. العوامل المؤثرة في قوة المغناطيس الكهربي -->
+<section class="card sec">
+  <h2><span class="n">4</span>العوامل المؤثرة في قوة المغناطيس الكهربي</h2>
+  <p>تتوقف قوة الجذب للمغناطيس الكهربي على 3 عوامل رئيسية:</p>
+
+  <div class="three">
+    <div style="border-top:4px solid var(--c-i)">
+      <b style="font-size:18px;color:var(--c-i)">1. عدد لفات الملف</b><br>
+      <b>تناسب طردي:</b><br>
+      كلما <b>زاد</b> عدد لفات الملف <b>زادت</b> قوة المغناطيس الكهربي (وجذب عددًا أكبر من الدبابيس).
+    </div>
+    <div style="border-top:4px solid var(--c-v)">
+      <b style="font-size:18px;color:var(--c-v)">2. شدة التيار الكهربي</b><br>
+      <b>تناسب طردي:</b><br>
+      كلما <b>زادت</b> شدة التيار المار بالملف <b>زادت</b> قوة المغناطيس (مثلاً بإضافة أعمدة كهربية على التوالي).
+    </div>
+    <div style="border-top:4px solid var(--c-r)">
+      <b style="font-size:18px;color:var(--c-r)">3. نوع مادة القلب</b><br>
+      <b>استخدام الحديد المطاوع:</b><br>
+      يعمل كقلب للمغناطيس لسهولة مغنطته وتكثيف خطوط المجال المغناطيسي بداخله.
+    </div>
+  </div>
+
+  <h3 style="margin-top:16px">المتغيرات في التجارب العلمية (مهم للاختبارات):</h3>
+  <div class="two">
+    <div>
+      <b>في دراسة أثر عدد اللفات (حالة 1 وحالة 2):</b><br>
+      • <b>المتغير التابع:</b> عدد الدبابيس المنجذبة (قوة المغناطيس).<br>
+      • <b>المتغير المستقل:</b> عدد لفات الملف.<br>
+      • <b>العامل الضابط (الثابت):</b> شدة التيار ونوع قلب المغناطيس وحجم الدبابيس.
+    </div>
+    <div>
+      <b>في دراسة أثر شدة التيار (حالة 2 وحالة 3):</b><br>
+      • <b>المتغير التابع:</b> عدد الدبابيس المنجذبة.<br>
+      • <b>المتغير المستقل:</b> شدة التيار الكهربي (عدد البطاريات).<br>
+      • <b>العامل الضابط (الثابت):</b> عدد لفات الملف ونوع قلب المغناطيس.
+    </div>
+  </div>
+
+  <h3 style="margin-top:14px">مقارنة الحالات الأربع الشهيرة (W, X, Y, Z) في أسئلة الامتحان:</h3>
+  <div class="tscroll">
+    <table>
+      <thead>
+        <tr>
+          <th>الحالة</th>
+          <th>عدد اللفات</th>
+          <th>عدد الأعمدة (التيار)</th>
+          <th>المقارنة والتفسير العلمي</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>W</th>
+          <td>10 لفات</td>
+          <td>عمود واحد</td>
+          <td>الحالة الأساسية.</td>
+        </tr>
+        <tr>
+          <th>X</th>
+          <td>10 لفات</td>
+          <td>عمودان على التوالي</td>
+          <td><b>أقوى من W</b> لزيادة شدة التيار المار في الملف.</td>
+        </tr>
+        <tr>
+          <th>Y</th>
+          <td>20 لفة</td>
+          <td>عمود واحد</td>
+          <td><b>أقوى من W</b> لزيادة عدد لفات الملف.</td>
+        </tr>
+        <tr>
+          <th>Z</th>
+          <td>20 لفة</td>
+          <td>عمودان على التوالي</td>
+          <td><b>أقوى من X و Y</b> لزيادة عدد اللفات وشدة التيار معًا!</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="lead" style="margin-top:8px;font-size:14px">
+    <b>سؤال ذكي:</b> هل يمكن نظريًا المقارنة المباشرة بين قوة المغناطيس في الحالتين (W) و (Z) بحكم عامل واحد؟<br>
+    <b>الإجابة:</b> لا يمكن، لوجود عاملين مستقلين متضادين في التأثير، حيث اختلف عدد اللفات واختلفت شدة التيار في نفس الوقت.
+  </p>
+
+  <details style="margin-top:12px">
+    <summary>🔍 ماذا يحدث عند تحريك زالق الريوستات لزيادة المقاومة في دائرة المغناطيس؟</summary>
+    <p>تقل شدة التيار الكهربي المار في الملف، وبالتالي <b>تقل قوة المغناطيس الكهربي</b> فيقل عدد الدبابيس المنجذبة إليه.</p>
+  </details>
+</section>
+
+<!-- 5. مقارنة بين المغناطيس الدائم والمغناطيس الكهربي -->
+<section class="card sec">
+  <h2><span class="n">5</span>مقارنة شاملة: المغناطيس الدائم vs المغناطيس الكهربي</h2>
+  <div class="tscroll">
+    <table>
+      <thead>
+        <tr>
+          <th>وجه المقارنة</th>
+          <th style="background:var(--c-v);color:#fff">المغناطيس الدائم (Permanent Magnet)</th>
+          <th style="background:var(--c-i);color:#fff">المغناطيس الكهربي (المؤقت Electromagnet)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>الأقطاب</th>
+          <td>له قطبان: شمالي (N) وجنوبي (S).</td>
+          <td>له قطبان: شمالي (N) وجنوبي (S).</td>
+        </tr>
+        <tr>
+          <th>المجال المغناطيسي</th>
+          <td>ينتج مجالاً مغناطيسياً حوله.</td>
+          <td>ينتج مجالاً مغناطيسياً حوله عند مرور التيار.</td>
+        </tr>
+        <tr>
+          <th>جذب المواد</th>
+          <td>يجذب المواد المغناطيسية كالحديد والنيكل.</td>
+          <td>يجذب المواد المغناطيسية كالحديد والنيكل.</td>
+        </tr>
+        <tr style="background:var(--surface2)">
+          <th>بقاء المغناطيسية</th>
+          <td><b>يحتفظ بمغناطيسيته دائمًا</b> ولا يفقدها بسهولة.</td>
+          <td><b>مغناطيس مؤقت:</b> يفقد مغناطيسيته عند قطع التيار الكهربي.</td>
+        </tr>
+        <tr style="background:var(--surface2)">
+          <th>التحكم في القوة</th>
+          <td><b>لا يمكن التحكم في قوته بسهولة</b> (قوته ثابتة).</td>
+          <td><b>يمكن التحكم في قوته بسهولة</b> (بتغيير شدة التيار أو عدد اللفات).</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 6. التطبيق التكنولوجي: الجرس الكهربي -->
+<section class="card sec">
+  <h2><span class="n">6</span>تطبيق تكنولوجي إثرائي: الجرس الكهربي (Electric Bell)</h2>
+  <p>الجرس الكهربي من أروع التطبيقات التي تستغل خاصية «المغناطيس المؤقت» لإحداث الرنين المتصل والصوت المستمر:</p>
+
+  <div class="two">
+    <div>
+      <h3 style="margin-bottom:6px">تركيب الجرس الكهربي:</h3>
+      <ol style="padding-inline-start:20px;line-height:1.8">
+        <li><b>مغناطيس كهربي</b> على هيئة حرف U لتركيز القطبين.</li>
+        <li><b>شريحة معدنية مرنة</b> من الحديد المطاوع ينتهي طرفها بمطرقة معدنية.</li>
+        <li><b>ناقوس معدني</b> يثبت أمام المطرقة ليصدر صوت الرنين عند اصطدامها به.</li>
+        <li><b>مسمار توصيل</b> يلامس الشريحة المعدنية عند غلق الدائرة.</li>
+        <li><b>زنبرك</b> مرن يصل بين الشريحة ومسمار التوصيل لإعادتها.</li>
+        <li><b>زر للتشغيل</b> وبطارية كمصدر للتيار.</li>
+      </ol>
+    </div>
+    <div class="diag-card" style="margin:0">
+      <svg viewBox="0 0 320 220" style="width:100%;max-width:300px;margin:0 auto" role="img" aria-label="رسم الجرس الكهربي">
+        <!-- ناقوس معدني -->
+        <path d="M 230 40 C 270 40 280 80 280 120 L 220 120 C 220 80 230 40 230 40 Z" fill="#D4AF37" stroke="#9A6B00" stroke-width="2"/>
+        <line x1="250" y1="20" x2="250" y2="40" stroke="#9A6B00" stroke-width="4"/>
+        <!-- مغناطيس U -->
+        <path d="M 50 60 L 110 60 L 110 90 L 80 90 L 80 130 L 110 130 L 110 160 L 50 160 Z" fill="#78909C" stroke="#37474F" stroke-width="2"/>
+        <!-- ملفات حول ساقي U -->
+        <rect x="70" y="55" width="35" height="15" fill="#D87A2B" rx="2"/>
+        <rect x="70" y="150" width="35" height="15" fill="#D87A2B" rx="2"/>
+        <text x="75" y="115" fill="#fff" font-weight="700" font-size="11">مغناطيس U</text>
+        <!-- شريحة ومطرقة -->
+        <line x1="145" y1="40" x2="145" y2="180" stroke="#37474F" stroke-width="3"/>
+        <circle cx="215" cy="80" r="10" fill="#C23333"/>
+        <line x1="145" y1="80" x2="210" y2="80" stroke="#C23333" stroke-width="3"/>
+        <text x="140" y="30" fill="var(--ink)" font-size="11" font-weight="700">شريحة مرنة</text>
+        <text x="215" y="65" fill="#C23333" font-size="11" font-weight="700">المطرقة</text>
+        <!-- مسمار التوصيل -->
+        <rect x="175" y="130" width="25" height="8" fill="#D4AF37"/>
+        <circle cx="170" cy="134" r="4" fill="#1F3E78"/>
+        <text x="195" y="155" fill="var(--ink)" font-size="10" font-weight="700">مسمار تلامس</text>
+      </svg>
+      <span class="lead" style="font-size:13px;font-weight:700">تركيب الجرس الكهربي ورنين المطرقة المتصل</span>
+    </div>
+  </div>
+
+  <h3 style="margin-top:14px">فكرة عمل الجرس بالخطوات العلمية:</h3>
+  <div class="three">
+    <div style="background:rgba(30,158,74,0.1);border:1px solid #1E9E4A">
+      <b style="color:#1E9E4A;font-size:16px">الخطوة 1: الجذب والاصطدام</b><br>
+      عند الضغط على الزر تُغلق الدائرة ويتمغنط القلب الحديدي للمغناطيس، فيجذب الشريحة المعدنية فتصطدم المطرقة بالناقوس محدثة صوتًا.
+    </div>
+    <div style="background:rgba(211,58,58,0.1);border:1px solid #D33A3A">
+      <b style="color:#D33A3A;font-size:16px">الخطوة 2: فتح الدائرة</b><br>
+      في نفس لحظة الاصطدام تنفصل الشريحة عن مسمار التوصيل، فتُفتح الدائرة وينقطع التيار، فيفقد المغناطيس مغناطيسيته فورًا.
+    </div>
+    <div style="background:rgba(47,143,216,0.1);border:1px solid #2F8FD8">
+      <b style="color:#2F8FD8;font-size:16px">الخطوة 3: عودة الزنبرك والتكرار</b><br>
+      يجذب الزنبرك الشريحة لموضعها الأصلي فتتصل بالمسمار وتُغلق الدائرة مجددًا، وتتكرر الحركة بسرعة محدثة الرنين المتصل.
+    </div>
+  </div>
+</section>
+
+<!-- 7. اختبر فهمك وسؤال الدرس التفاعلي -->
+<section class="card sec">
+  <h2><span class="n">7</span>اختبر فهمك الفوري (سؤال الدرس التفاعلي)</h2>
+  
+  <div class="interactive-test" id="quickTest1">
+    <h3 style="margin:0 0 8px">❓ سؤال تفكير: ماذا يحدث لقوة المغناطيس الكهربي عند استبدال قلب الحديد المطاوع بقطعة من الخشب؟</h3>
+    <button type="button" class="opt-btn" onclick="checkQuick(1, 0, this)">أ) تزداد قوة جذب المغناطيس لأن الخشب مادة عازلة تحافظ على الكهرباء.</button>
+    <button type="button" class="opt-btn" onclick="checkQuick(1, 1, this)">ب) تقل قوته المغناطيسية جدًا وتكاد تنعدم لأن الخشب لا يتمغنط ولا يركز خطوط المجال.</button>
+    <button type="button" class="opt-btn" onclick="checkQuick(1, 2, this)">ج) يظل المغناطيس بنفس القوة دون أي تغير لأن الملف النحاسي هو الأساس.</button>
+    <div class="feedback fb" id="fbQuick1"></div>
+  </div>
+
+  <div class="interactive-test" id="quickTest2" style="margin-top:14px">
+    <h3 style="margin:0 0 8px">❓ سؤال دقيق: في ونش رفع الخردة المغناطيسي، كيف تسقط قطع الحديد في المكان المراد نقلها إليه؟</h3>
+    <button type="button" class="opt-btn" onclick="checkQuick(2, 0, this)">أ) بعكس اتجاه دوران الونش بسرعة شديدة فتطير الخردة بالطرد المركزي.</button>
+    <button type="button" class="opt-btn" onclick="checkQuick(2, 1, this)">ب) بفصل التيار الكهربي فيفقد المغناطيس مغناطيسيته المؤقتة فتسقط الخردة بالجاذبية.</button>
+    <button type="button" class="opt-btn" onclick="checkQuick(2, 2, this)">ج) بتسخين المغناطيس حتى يفقد مغناطيسيته بالحرارة.</button>
+    <div class="feedback fb" id="fbQuick2"></div>
+  </div>
+
+  <h3 style="margin-top:18px">حلول أسئلة «اختبر فهمك 1» الواردة بكتاب الشرح (صفحة 221):</h3>
+  <details open>
+    <summary>أولاً: اكتب ما تدل عليه العبارات التالية</summary>
+    <ol style="line-height:1.8;padding-inline-start:20px">
+      <li>المنطقة المحيطة بالمغناطيس والتي تظهر فيها آثار قوته المغناطيسية: <b>المجال المغناطيسي</b>.</li>
+      <li>مغناطيس يمكن التحكم في قوته المغناطيسية بسهولة: <b>المغناطيس الكهربي</b>.</li>
+      <li>نوع من الحديد يستخدم في صناعة قلب المغناطيس الكهربي: <b>الحديد المطاوع</b>.</li>
+      <li>العالم الذي اكتشف التأثير المغناطيسي للتيار الكهربي: <b>هانز أورستد</b>.</li>
+    </ol>
+  </details>
+
+  <details>
+    <summary>ثانيًا: ماذا يحدث عند...؟</summary>
+    <ul style="line-height:1.8;padding-inline-start:20px">
+      <li><b>لف سلك نحاس معزول متصل ببطارية حول مسمار من الحديد المطاوع:</b> يتمغنط المسمار ويتحول لمغناطيس كهربي مؤقت قادر على جذب المواد المغناطيسية كالدبابيس وبرادة الحديد.</li>
+      <li><b>فصل التيار الكهربي عن المغناطيس الكهربي:</b> يفقد مغناطيسيته تمامًا وتنفصل عنه قطع الحديد وبرادة الحديد المنجذبة إليه.</li>
+    </ul>
+  </details>
+
+  <details>
+    <summary>ثالثًا: ضع علامة (✓) أو (✗) مع تصويب الخطأ</summary>
+    <ol style="line-height:1.8;padding-inline-start:20px">
+      <li>توجد علاقة بين القوى الكهربية والقوى المغناطيسية. ← <b>(✓) صواب</b>.</li>
+      <li>خطوط المجال المغناطيسي هي خطوط حقيقية تمثل اتجاه وشدة المجال. ← <b>(✗) خطأ</b>، التصويب: خطوط <b>وهمية</b>.</li>
+      <li>تنحرف إبرة البوصلة عند تأثرها بمجال مغناطيسي. ← <b>(✓) صواب</b>.</li>
+      <li>المغناطيس المؤقت له قطبان أحدهما موجب والآخر سالب. ← <b>(✗) خطأ</b>، التصويب: أحدهما <b>شمالي (N)</b> والآخر <b>جنوبي (S)</b>.</li>
+    </ol>
+  </details>
+</section>
+
+</main></div>
+
+<script src="../js/config.js"></script>
+<script src="../js/video.js" data-video="magnet"></script>
+<script src="../js/helper.js" data-page="magnet" data-logo="../assets/logo.png"></script>
+<script>
+function checkQuick(q, ans, btn){
+  var fb = document.getElementById('fbQuick' + q);
+  var parent = btn.parentElement;
+  var allBtns = parent.querySelectorAll('.opt-btn');
+  allBtns.forEach(function(b){ b.style.opacity = '0.7'; });
+  btn.style.opacity = '1';
+  fb.style.display = 'block';
+  
+  if(q === 1){
+    if(ans === 1){
+      btn.style.borderColor = 'var(--good)';
+      btn.style.background = 'var(--good-bg)';
+      fb.className = 'feedback fb ok';
+      fb.innerHTML = '🎉 إجابة ممتازة! الحديد المطاوع يكثف ويركز خطوط المجال المغناطيسي، بينما الخشب مادة غير مغناطيسية فلا تساعد في تكوين مغناطيس قوي.';
+    } else {
+      btn.style.borderColor = 'var(--bad)';
+      btn.style.background = 'var(--bad-bg)';
+      fb.className = 'feedback fb no';
+      fb.innerHTML = '❌ إجابة غير دقيقة! الخشب مادة غير مغناطيسية لا تتمغنط، لذلك يضعف المغناطيس جدًا مقارنة بالحديد المطاوع.';
+    }
+  } else if(q === 2){
+    if(ans === 1){
+      btn.style.borderColor = 'var(--good)';
+      btn.style.background = 'var(--good-bg)';
+      fb.className = 'feedback fb ok';
+      fb.innerHTML = '🎉 أحسنت صنعًا! لأن المغناطيس الكهربي مغناطيس مؤقت يفقد مغناطيسيته عند انقطاع التيار فتسقط قطع الخردة في الحال!';
+    } else {
+      btn.style.borderColor = 'var(--bad)';
+      btn.style.background = 'var(--bad-bg)';
+      fb.className = 'feedback fb no';
+      fb.innerHTML = '❌ غير صحيح! الفكرة العبقرية للمغناطيس الكهربي هي بساطة فصل التيار عنه فيتحول لقطعة حديد عادية تسقط منها الخردة.';
+    }
+  }
+}
+</script>
+</body></html>
