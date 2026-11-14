@@ -12,7 +12,7 @@ function summary(){var d=Store.get(),b=d.best||{},pts=0,st=0;QUIZZES.forEach(fun
 $('passTxt').textContent=pass+'%';
 $('priv').textContent=CFG.endpoint?'عند إنهاء الاختبار يُرسل اسمك ودرجتك ونقاط الضعف إلى أستاذك كيرلس لمتابعتك. النقاط والنجوم تُحفظ على جهازك فقط.':'اسمك ودرجتك لا تُرسل تلقائيًا لأي جهة، ويمكنك إرسالها لأستاذك بنفسك بزر واتساب بعد الاختبار. النقاط والنجوم تُحفظ على جهازك فقط.';
 summary();
-$('qlist').innerHTML=QUIZZES.map(function(z,i){return '<button class="btn" type="button" data-i="'+i+'" style="text-align:start">'+z.title+' <small>('+z.questions.length+' أسئلة)</small></button>';}).join('');
+$('qlist').innerHTML=QUIZZES.map(function(z,i){var isComp=z.id==='unit2_comprehensive';return '<button class="btn" type="button" data-i="'+i+'" style="text-align:start;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px'+(isComp?';border:2px solid #D4AF37;background:linear-gradient(135deg,#14284B,#1E3A6E);color:#fff;box-shadow:0 4px 14px rgba(212,175,55,0.3)':'')+'"><span>'+(isComp?'🏆 ':'')+z.title+'</span><small style="opacity:0.85">('+z.questions.length+' أسئلة)</small></button>';}).join('');
 $('qlist').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;
   name=$('sname').value.trim();
   phone=$('sphone').value.trim();

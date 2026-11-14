@@ -6,6 +6,14 @@
   (function(){var hd=document.head;function L(rel,href){var l=document.createElement('link');l.rel=rel;l.href=root+href;hd.appendChild(l);}
     L('manifest','manifest.webmanifest');L('icon','assets/icon-192.png');L('apple-touch-icon','assets/icon-192.png');
     var m=document.createElement('meta');m.name='theme-color';m.content='#14284B';hd.appendChild(m);
+    /* تفعيل تتبع Google Analytics 4 للمنصة */
+    if(!window.gtag){
+      var ga=document.createElement('script');ga.async=true;ga.src='https://www.googletagmanager.com/gtag/js?id=G-5XYK1ZMZPK';hd.appendChild(ga);
+      window.dataLayer=window.dataLayer||[];
+      window.gtag=function(){dataLayer.push(arguments);};
+      gtag('js',new Date());
+      gtag('config','G-5XYK1ZMZPK');
+    }
     if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol))navigator.serviceWorker.register(root+'sw.js').catch(function(){});})();
   var nav=PAGES.map(function(p){return '<a href="'+root+p[0]+'"'+(p[0]===cur?' aria-current="page"':'')+'>'+p[1]+'</a>';}).join('');
   var h=document.createElement('header'); h.className='bn-head';

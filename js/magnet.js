@@ -5,7 +5,7 @@
 (function() {
   // ---- 1. إدارة التبويبات ----
   window.switchTab = function(idx) {
-    for (var i = 1; i <= 4; i++) {
+    for (var i = 1; i <= 5; i++) {
       var btn = document.getElementById('tabBtn' + i);
       var pane = document.getElementById('pane' + i);
       if (btn) btn.setAttribute('aria-selected', i === idx ? 'true' : 'false');
@@ -20,6 +20,11 @@
     // إيقاف رنين الجرس إذا غادر الطالب التبويب
     if (idx !== 3 && window.stopBellRinging) {
       window.stopBellRinging();
+    }
+    // إيقاف دوران الموتور والدينامو إذا غادر الطالب التبويب
+    if (idx !== 5) {
+      if (typeof motorState !== 'undefined' && motorState.running && window.toggleMotorPower) toggleMotorPower();
+      if (typeof dynamoState !== 'undefined' && dynamoState.auto && window.toggleDynamoAuto) toggleDynamoAuto();
     }
   };
 
@@ -524,6 +529,342 @@
       }
     }
   };
+
+  // ---- 6. محاكي المحرك والمولد الكهربي (الموتور والدينامو) ----
+  var motorState = {
+    running: false,
+    reversedBat: false,
+    reversedMag: false,
+    current: 2,
+    turns: 20,
+    shanyourMode: 'normal',
+    angle: 0,
+    animId: null
+  };
+
+  var dynamoState = {
+    speed: 0,
+    auto: false,
+    currentType: 'ac',
+    angle: 0,
+    animId: null
+  };
+
+  // التبديل بين واجهة المحرك وواجهة المولد
+  window.setMachineMode = function(mode) {
+    var secM = document.getElementById('motorSection');
+    var secD = document.getElementById('dynamoSection');
+    var btnM = document.getElementById('btnModeMotor');
+    var btnD = document.getElementById('btnModeDynamo');
+
+    if (mode === 'motor') {
+      if (secM) secM.hidden = false;
+      if (secD) secD.hidden = true;
+      if (btnM) { btnM.className = 'btn'; }
+      if (btnD) { btnD.className = 'btn alt'; }
+      if (dynamoState.auto) toggleDynamoAuto();
+    } else {
+      if (secM) secM.hidden = true;
+      if (secD) secD.hidden = false;
+      if (btnM) { btnM.className = 'btn alt'; }
+      if (btnD) { btnD.className = 'btn'; }
+      if (motorState.running) toggleMotorPower();
+      updateDynamoView();
+    }
+  };
+
+  // ---- أ) وظائف المحرك الكهربي (الموتور) ----
+  window.toggleMotorPower = function() {
+    motorState.running = !motorState.running;
+    var btn = document.getElementById('btnMotorPower');
+    var statusTxt = document.getElementById('motorStatusTxt');
+
+    if (motorState.running) {
+      if (btn) { btn.textContent = 'إيقاف الموتور ⏹️'; btn.className = 'btn alt'; }
+      if (statusTxt) { statusTxt.textContent = 'يعمل ويدور ⚡'; statusTxt.style.color = 'var(--good)'; }
+      startMotorAnimation();
+    } else {
+      if (btn) { btn.textContent = 'تشغيل الموتور ▶️'; btn.className = 'btn'; }
+      if (statusTxt) { statusTxt.textContent = 'متوقف ⏸️'; statusTxt.style.color = 'var(--c-r)'; }
+      stopMotorAnimation();
+    }
+    updateMotorControls();
+  };
+
+  window.reverseMotorBattery = function() {
+    motorState.reversedBat = !motorState.reversedBat;
+    var batTxt = document.getElementById('motorBatTxt');
+    if (batTxt) {
+      batTxt.textContent = motorState.reversedBat ? '− بطارية + (معكوسة)' : '+ بطارية −';
+    }
+    updateMotorControls();
+  };
+
+  window.reverseMotorMagnets = function() {
+    motorState.reversedMag = !motorState.reversedMag;
+    var pLeft = document.getElementById('motorPoleLeft');
+    var pLeftTxt = document.getElementById('motorPoleLeftTxt');
+    var pRight = document.getElementById('motorPoleRight');
+    var pRightTxt = document.getElementById('motorPoleRightTxt');
+
+    if (motorState.reversedMag) {
+      if (pLeft) pLeft.setAttribute('fill', '#D32F2F');
+      if (pLeftTxt) pLeftTxt.textContent = 'N';
+      if (pRight) pRight.setAttribute('fill', '#1976D2');
+      if (pRightTxt) pRightTxt.textContent = 'S';
+    } else {
+      if (pLeft) pLeft.setAttribute('fill', '#1976D2');
+      if (pLeftTxt) pLeftTxt.textContent = 'S';
+      if (pRight) pRight.setAttribute('fill', '#D32F2F');
+      if (pRightTxt) pRightTxt.textContent = 'N';
+    }
+    updateMotorControls();
+  };
+
+  window.setShanyourMode = function(mode) {
+    motorState.shanyourMode = mode;
+    var cSlider = document.getElementById('motorCurrentSlider');
+    var tSlider = document.getElementById('motorTurnsSlider');
+    var note = document.getElementById('shanyourNote');
+
+    if (mode === 'drill') {
+      // سرعة عالية جداً لاختراق الجدران والأسطح الصلبة
+      motorState.current = 5;
+      motorState.turns = 50;
+      if (cSlider) cSlider.value = 5;
+      if (tSlider) tSlider.value = 50;
+      if (note) {
+        note.innerHTML = '<b style="color:var(--c-r)">🔩 وضع المثقاب مفعل:</b> سرعة دوران فائقة وعزم ازدواج عالي لتوفير الطاقة الحركية اللازمة لاختراق الأسطح الصلبة (كالجدران).';
+      }
+    } else if (mode === 'screwdriver') {
+      // سرعة منخفضة ودقيقة لحماية رأس المسمار اللولبي
+      motorState.current = 1;
+      motorState.turns = 10;
+      if (cSlider) cSlider.value = 1;
+      if (tSlider) tSlider.value = 10;
+      if (note) {
+        note.innerHTML = '<b style="color:var(--c-i)">🪛 وضع المفك مفعل:</b> سرعة دوران منخفضة وهادئة لضمان الدقة وتجنب إتلاف رأس المسمار اللولبي.';
+      }
+    }
+
+    if (!motorState.running) toggleMotorPower();
+    updateMotorControls();
+  };
+
+  window.updateMotorControls = function() {
+    var cSlider = document.getElementById('motorCurrentSlider');
+    var tSlider = document.getElementById('motorTurnsSlider');
+    if (cSlider) motorState.current = parseFloat(cSlider.value);
+    if (tSlider) motorState.turns = parseInt(tSlider.value, 10);
+
+    var cVal = document.getElementById('motorCurrentVal');
+    var tVal = document.getElementById('motorTurnsVal');
+    if (cVal) cVal.textContent = motorState.current + ' A';
+    if (tVal) tVal.textContent = motorState.turns + ' لفة';
+
+    // تحديد اتجاه الدوران: يعتمد على جداء إشارتي البطارية والمغناطيس (قاعدة اليد اليسرى)
+    // لو تم عكس أحدهما ينعكس الدوران، لو عكس كلاهما يعود للأصل
+    var isClockwise = (motorState.reversedBat !== motorState.reversedMag);
+    var dirTxt = document.getElementById('motorDirTxt');
+    if (dirTxt) {
+      dirTxt.textContent = isClockwise ? 'مع عقارب الساعة ↻' : 'عكس عقارب الساعة ↺';
+      dirTxt.style.color = isClockwise ? 'var(--good)' : 'var(--c-v)';
+    }
+
+    // حساب عزم الازدواج وسرعة الدوران RPM
+    // Torque proportional to I * N * B
+    var torque = (motorState.current * motorState.turns * 0.08).toFixed(2);
+    var rpm = motorState.running ? Math.round(motorState.current * motorState.turns * 25) : 0;
+
+    var rpmTxt = document.getElementById('motorRpmTxt');
+    var torqueTxt = document.getElementById('motorTorqueTxt');
+    if (rpmTxt) rpmTxt.textContent = rpm + ' RPM';
+    if (torqueTxt) torqueTxt.textContent = torque + ' N.m';
+
+    // تحديث أسهم قوى عزم الازدواج
+    var tArrows = document.getElementById('motorTorqueArrows');
+    if (tArrows) {
+      tArrows.style.opacity = motorState.running ? '1' : '0.3';
+      tArrows.setAttribute('transform', isClockwise ? '' : 'scale(1, -1)');
+    }
+
+    // شرح فيزيائي تفاعلي
+    var expl = document.getElementById('motorExplFb');
+    if (expl) {
+      expl.innerHTML = '<b>💡 الاستنتاج الفيزيائي:</b> تتناسب قدرة المحرك طرديًا مع عزم الازدواج (' + torque + ' N.m). ' +
+                       'عند زيادة التيار لـ ' + motorState.current + 'A واللفات لـ ' + motorState.turns + ' لفة، زادت سرعة المحرك لـ <b>' + rpm + ' RPM</b>. ' +
+                       'وعند عكس قطبي ' + (motorState.reversedBat ? 'البطارية ' : '') + (motorState.reversedMag ? 'المغناطيس ' : '') + 'انعكس اتجاه القوى وعزم الدوران!';
+    }
+  };
+
+  function startMotorAnimation() {
+    stopMotorAnimation();
+    function step() {
+      if (!motorState.running) return;
+      var isClockwise = (motorState.reversedBat !== motorState.reversedMag);
+      var speedDeg = (motorState.current * motorState.turns * 0.12);
+      motorState.angle += isClockwise ? speedDeg : -speedDeg;
+
+      var fan = document.getElementById('motorFanG');
+      var rotor = document.getElementById('motorRotorG');
+      if (fan) fan.setAttribute('transform', 'translate(300, 30) rotate(' + motorState.angle + ')');
+      if (rotor) rotor.setAttribute('transform', 'translate(300, 125) rotate(' + (motorState.angle % 360) + ')');
+
+      motorState.animId = requestAnimationFrame(step);
+    }
+    motorState.animId = requestAnimationFrame(step);
+  }
+
+  function stopMotorAnimation() {
+    if (motorState.animId) {
+      cancelAnimationFrame(motorState.animId);
+      motorState.animId = null;
+    }
+  }
+
+  // ---- ب) وظائف المولد الكهربي (الدينامو) ----
+  window.setDynamoCurrentType = function(type) {
+    dynamoState.currentType = type;
+    var btnAC = document.getElementById('btnGenAC');
+    var btnDC = document.getElementById('btnGenDC');
+    var wPath = document.getElementById('dynamoWavePath');
+    var wLabel = document.getElementById('dynamoWaveLabel');
+    var typeTxt = document.getElementById('dynamoTypeTxt');
+
+    if (type === 'ac') {
+      if (btnAC) { btnAC.className = 'btn'; }
+      if (btnDC) { btnDC.className = 'btn alt'; }
+      if (wPath) wPath.setAttribute('d', 'M 380 260 Q 400 235, 420 260 T 460 260 T 500 260');
+      if (wLabel) wLabel.textContent = 'تيار متردد AC متذبذب الاتجاه والشدة ~';
+      if (typeTxt) typeTxt.textContent = 'تيار متردد (AC)';
+    } else {
+      if (btnAC) { btnAC.className = 'btn alt'; }
+      if (btnDC) { btnDC.className = 'btn'; }
+      if (wPath) wPath.setAttribute('d', 'M 380 265 Q 395 240, 410 265 M 410 265 Q 425 240, 440 265 M 440 265 Q 455 240, 470 265');
+      if (wLabel) wLabel.textContent = 'تيار مستمر DC موحد الاتجاه (أسطوانة مشقوقة) ⎍';
+      if (typeTxt) typeTxt.textContent = 'تيار مستمر (DC)';
+    }
+    updateDynamoView();
+  };
+
+  window.updateDynamoControls = function() {
+    var slider = document.getElementById('dynamoSpeedSlider');
+    if (slider) dynamoState.speed = parseInt(slider.value, 10);
+    updateDynamoView();
+  };
+
+  window.spinDynamoStep = function() {
+    dynamoState.speed = Math.min(1200, dynamoState.speed + 250);
+    var slider = document.getElementById('dynamoSpeedSlider');
+    if (slider) slider.value = dynamoState.speed;
+    updateDynamoView();
+
+    // يتباطأ تدريجيًا كالحياة الواقعية
+    setTimeout(function() {
+      if (!dynamoState.auto && dynamoState.speed > 0) {
+        dynamoState.speed = Math.max(0, dynamoState.speed - 150);
+        if (slider) slider.value = dynamoState.speed;
+        updateDynamoView();
+      }
+    }, 800);
+  };
+
+  window.toggleDynamoAuto = function() {
+    dynamoState.auto = !dynamoState.auto;
+    var btn = document.getElementById('btnDynamoAuto');
+    var slider = document.getElementById('dynamoSpeedSlider');
+
+    if (dynamoState.auto) {
+      if (btn) { btn.textContent = 'إيقاف التدوير المستمر ⏹️'; btn.className = 'btn alt'; }
+      if (dynamoState.speed < 400) {
+        dynamoState.speed = 600;
+        if (slider) slider.value = 600;
+      }
+      startDynamoAnimation();
+    } else {
+      if (btn) { btn.textContent = 'تدوير مستمر (توربين) 🌊'; btn.className = 'btn alt'; }
+      stopDynamoAnimation();
+    }
+    updateDynamoView();
+  };
+
+  window.setDynamoPreset = function(preset) {
+    var slider = document.getElementById('dynamoSpeedSlider');
+    if (preset === 'bike') {
+      dynamoState.speed = 350;
+      setDynamoCurrentType('ac');
+    } else if (preset === 'hydro') {
+      dynamoState.speed = 900;
+      setDynamoCurrentType('ac');
+    } else if (preset === 'wind') {
+      dynamoState.speed = 600;
+      setDynamoCurrentType('ac');
+    }
+    if (slider) slider.value = dynamoState.speed;
+    if (!dynamoState.auto) toggleDynamoAuto();
+    updateDynamoView();
+  };
+
+  function updateDynamoView() {
+    var speedVal = document.getElementById('dynamoSpeedVal');
+    var speedTxt = document.getElementById('dynamoSpeedTxt');
+    var emfTxt = document.getElementById('dynamoEmfTxt');
+    var bulbTxt = document.getElementById('dynamoBulbTxt');
+    var bulb = document.getElementById('dynamoBulb');
+    var glow = document.getElementById('dynamoBulbGlow');
+    var expl = document.getElementById('dynamoExplFb');
+
+    if (speedVal) speedVal.textContent = dynamoState.speed + ' RPM';
+    if (speedTxt) speedTxt.textContent = dynamoState.speed + ' RPM';
+
+    // حساب القوة الدافعة ق.د.ك وشدة الإضاءة
+    var emf = (dynamoState.speed * 0.018).toFixed(1);
+    var glowOpacity = Math.min(1, dynamoState.speed / 800);
+    var bulbPercent = Math.round(glowOpacity * 100);
+
+    if (emfTxt) emfTxt.textContent = emf + ' V';
+    if (bulbTxt) {
+      bulbTxt.textContent = dynamoState.speed === 0 ? 'منطفئ (0%)' : 'مضيء (' + bulbPercent + '%)';
+      bulbTxt.style.color = dynamoState.speed === 0 ? 'var(--muted)' : 'var(--good)';
+    }
+
+    if (bulb) {
+      bulb.setAttribute('fill', dynamoState.speed === 0 ? '#BDBDBD' : (dynamoState.speed > 500 ? '#FFEB3B' : '#FFE082'));
+    }
+    if (glow) {
+      glow.setAttribute('opacity', glowOpacity.toString());
+      glow.setAttribute('r', (20 + glowOpacity * 18).toString());
+    }
+
+    if (expl) {
+      expl.innerHTML = '<b>💡 الاستنتاج الفيزيائي:</b> كلما زادت سرعة دوران التوربين (' + dynamoState.speed + ' RPM) قطع الملف خطوط المجال المغناطيسي بمعدل زمني أكبر، ' +
+                       'فتولدت قوة دافعة كهربية أكبر (<b>' + emf + ' V</b>) وزادت شدة إضاءة المصباح إلى <b>' + bulbPercent + '%</b>!';
+    }
+  }
+
+  function startDynamoAnimation() {
+    stopDynamoAnimation();
+    function step() {
+      if (!dynamoState.auto && dynamoState.speed <= 0) return;
+      var deg = (dynamoState.speed * 0.08);
+      dynamoState.angle = (dynamoState.angle + deg) % 360;
+
+      var turb = document.getElementById('dynamoTurbineG');
+      var rot = document.getElementById('dynamoRotorG');
+      if (turb) turb.setAttribute('transform', 'translate(300, 30) rotate(' + dynamoState.angle + ')');
+      if (rot) rot.setAttribute('transform', 'translate(300, 125) rotate(' + dynamoState.angle + ')');
+
+      dynamoState.animId = requestAnimationFrame(step);
+    }
+    dynamoState.animId = requestAnimationFrame(step);
+  }
+
+  function stopDynamoAnimation() {
+    if (dynamoState.animId) {
+      cancelAnimationFrame(dynamoState.animId);
+      dynamoState.animId = null;
+    }
+  }
 
   // التهيئة عند تحميل الصفحة
   document.addEventListener('DOMContentLoaded', function() {
